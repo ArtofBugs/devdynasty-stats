@@ -45,3 +45,16 @@ form {
 input[type="submit"] {
     margin: 10px;
 }
+
+textarea {
+    width: auto;
+    max-width: 100%;
+}
+
+.textarea-input {
+    display: grid;
+}
+
+.form-example {
+    margin: 5px;
+}

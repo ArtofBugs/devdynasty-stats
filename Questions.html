@@ -6,7 +6,7 @@
     </head>
 <body>
     <h1>Questions</h1>
-    <nav>[ Users | Questions | Answers | Question_Types | Game_Rounds | Rounds_Questions ]</nav>
+    <nav>[ <a href="Users.html">Users</a> | <a href="Questions.html">Questions</a> | <a href="answers.html">Answers</a> | <a href="question_types.html">Question_Types</a> | <a href="Game_Rounds.html">Game_Rounds</a> | <a href="rounds_questions.html">Rounds_Questions</a> ]</nav>
     <div class="box">
         <h2>Browse Questions</h2>
         <table>
@@ -40,12 +40,16 @@
     <div class="box">
         <h2>Insert Question</h2>
         <form action="" method="get" class="form-example">
-            <label for="text">Question text: </label>
-            <textarea name="text" id="text" required></textarea>
-            <label for="type">Type: </label><select name="type" id="type" required>
-                <option selected>Behavioral</option>
-                <option>Technical</option>
-            </select>
+            <div class="textarea-input">
+                <label for="text">Question text: </label>
+                <textarea name="text" id="text" required></textarea>
+            </div>
+            <div class="form-example">
+                <label for="type">Type: </label><select name="type" id="type" required>
+                    <option selected>Behavioral</option>
+                    <option>Technical</option>
+                </select>
+            </div>
             <input type="submit">
         </form>
     </div>
