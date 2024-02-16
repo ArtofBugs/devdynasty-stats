@@ -1,3 +1,88 @@
+-- Project Title: DevDynasty Question Stats
+-- Made by Team DevDynasty / Group 160
+-- Annette Tongsak and Oria Weng
+
+-- This file contains our Data Manipulation Queries.
+
+-- get all question types and their information for the select Question_Types page
+SELECT typeID, typeName
+    FROM Question_Types
+    ORDER BY typeID
+;
+
+-- get all answers and their information for the select Answers page
+SELECT Answers.answerID, Answers.answerText, Questions.questionID, Answers.correctness -- questionID is the FK from Questions
+    FROM Answers
+        INNER JOIN Questions
+        ON Answers.questionID = Questions.questionID
+;
+
+-- get all rounds_questions information for the select Rounds_Questions page
+SELECT Game_Rounds.roundID, Questions.questionID -- both are FKs
+    FROM Game_Rounds
+        INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
+        INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+
+    ORDER BY Game_Rounds.roundID, Questions.questionID
+;
+
+-- insert a new question type on the Question_Types page
+INSERT INTO Question_Types (typeName)
+    VALUES (:typeNameInput)
+;
+
+-- get all question IDs and names to populate the Question ID dropdown
+-- on the Answers page and the Rounds_Questions page
+SELECT questionID, questionText
+    FROM Questions
+    ORDER BY questionID
+;
+
+-- DO I NEED TO CREATE A QUERY FOR THE CORRECTNESS DROP DOWN?
+-- I don't think it's required to always have a dynamic drop down for ALL
+
+-- insert correctness for a new answer on the Answers page
+INSERT INTO Answers (answerText, questionID, correctness)
+    VALUES
+    (
+        :answerTextInput,
+        :questionIDInput,
+        :correctnessInput
+    )
+;
+
+-- get all rounds for the Round ID dropdown on the Rounds_Questions page
+SELECT roundID
+    FROM Game_Rounds
+    ORDER BY roundID
+;
+
+-- insert roundID and questionID for a new round_question on the Rounds_Questions page
+INSERT INTO Rounds_Questions (roundID, questionID)
+    VALUES
+    (
+        :roundIDInput,
+        :questionIDInput
+    )
+;
+
+-- select a round_question to update / delete on the Rounds_Questions page
+SELECT roundID, questionID
+    FROM Rounds_Questions
+    WHERE roundID = :roundID_to_update AND questionID = :questionID_to_update
+;
+
+-- update a round_question based on selection of which round_question to update
+UPDATE Rounds_Questions
+    SET roundID = :updated_roundID, questionID = :updated_questionID
+    WHERE roundID = :roundID_to_update AND questionID = :questionID_to_update
+;
+
+-- delete a round_question based on selection of which round_question to update
+DELETE FROM Rounds_Questions
+    WHERE roundID = :roundID_to_update AND questionID = :questionID_to_update
+;
+
 -- Get all Users and their usernames + passwords for display on the Users page
 SELECT userID, username, password FROM Users
 ORDER BY userID;
