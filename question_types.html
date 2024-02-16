@@ -2,48 +2,35 @@
 <html>
     <head>
         <title>DevDynasty Question Stats - Question_Types</title>
+        <link rel="stylesheet" href="style.css">
     </head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            padding: 3px;
-        }
-
-        .box {
-            width: 200px;
-            height: 130px;
-            border: 1px solid black;
-            margin-top: 10px;
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-
-    </style>
     <body>
         <h1>Question_Types</h1>
-        <p>[ Users | Questions | Answers | Question_Types | Game_Rounds | Rounds_Questions ]</p>
-        <p><b>Browse Question_Types</b></p>
-        <table>
-            <tr>
-              <th>typeID</th>
-              <th>typeName</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>"Behavioral"</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>"Technical"</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>"Survey"</td>
-            </tr>
-        </table>
+        <nav>[ Users | Questions | Answers | Question_Types | Game_Rounds | Rounds_Questions ]</nav>
+        <div class="box">
+            <h2>Browse Question_Types</h2>
+            <table>
+                <tr>
+                  <th>typeID</th>
+                  <th>typeName</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>"Behavioral"</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>"Technical"</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>"Survey"</td>
+                </tr>
+            </table>
+        </div>
 
         <div class="box">
-            <p><b>Insert Question_Type</b></p>
+            <h2>Insert Question_Type</h2>
             <form action="" method="get" class="form-example">
                 <div class="form-example">
                 <label for="name">Name: </label>
