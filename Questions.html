@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="mystyle.css">
-</head>
+    <head>
+        <title>DevDynasty Question Stats - Questions</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
 <body>
     <h1>Questions</h1>
-    <p>[ Users | Questions | Answers | Question_Types | Game_Rounds | Rounds_Questions ]</p>
-    <h2>All Questions</h2>
-    <table>
-        <tr>
-            <th>Question ID</th>
-            <th>Question Text</th>
-            <th>Type</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>How have you dealt with a team member not pulling their weight in the past?</td>
-            <td>Behavioral</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</td>
-            <td>Behavioral</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</td>
-            <td>Technical</td>
-        </tr>
-    </table>
+    <nav>[ <a href="Users.html">Users</a> | <a href="Questions.html">Questions</a> | <a href="answers.html">Answers</a> | <a href="question_types.html">Question_Types</a> | <a href="Game_Rounds.html">Game_Rounds</a> | <a href="rounds_questions.html">Rounds_Questions</a> ]</nav>
+    <div class="box">
+        <h2>Browse Questions</h2>
+        <table>
+            <tr>
+                <th>Question ID</th>
+                <th>Question Text</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>How have you dealt with a team member not pulling their weight in the past?</td>
+                <td>Behavioral</td>
+                <td><button id="delete">Delete</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</td>
+                <td>Behavioral</td>
+                <td><button id="delete">Delete</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</td>
+                <td>Technical</td>
+                <td><button id="delete">Delete</button></td>
+            </tr>
+        </table>
+    </div>
     
-    <h2>Add Question</h2>
-    <form>
-        <label for="text">Question text: </label><input type="text" name="text" id="text" required>
-        <label for="type">Type: </label><select name="type" id="type" required>
-            <option selected>Behavioral</option>
-            <option>Technical</option>
-        </select>
-        <input type="submit">
-    </form>
+    <div class="box">
+        <h2>Insert Question</h2>
+        <form action="" method="get" class="form-example">
+            <div class="textarea-input">
+                <label for="text">Question text: </label>
+                <textarea name="text" id="text" required></textarea>
+            </div>
+            <div class="form-example">
+                <label for="type">Type: </label><select name="type" id="type" required>
+                    <option selected>Behavioral</option>
+                    <option>Technical</option>
+                </select>
+            </div>
+            <input type="submit">
+        </form>
+    </div>
 </body>

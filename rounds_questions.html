@@ -2,45 +2,48 @@
 <html>
     <head>
         <title>DevDynasty Question Stats - Rounds_Questions</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1>Rounds_Questions</h1>
-        <p>[ Users | Questions | Answers | Question_Types | Game_Rounds | Rounds_Questions ]</p>
-        <p><b>Browse Rounds_Questions</b></p>
-        <table>
-            <tr>
-              <th>roundID</th>
-              <th>questionID</th>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>3</td>
-            </tr>
-        </table>
+        <nav>[ <a href="Users.html">Users</a> | <a href="Questions.html">Questions</a> | <a href="answers.html">Answers</a> | <a href="question_types.html">Question_Types</a> | <a href="Game_Rounds.html">Game_Rounds</a> | <a href="rounds_questions.html">Rounds_Questions</a> ]</nav>
+        <div class="box">
+            <h2>Browse Rounds_Questions</h2>
+            <table>
+                <tr>
+                  <th>roundID</th>
+                  <th>questionID</th>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>3</td>
+                </tr>
+            </table>
+        </div>
         
-        <div class="box-2">
-            <p><b>Insert Round_Question</b></p>
+        <div class="box">
+            <h2>Insert Round_Question</h2>
             <form action="" method="get" class="form-example">
                 <div class="form-example">
-                    <label for="roundID">Round ID:</label>
+                    <label for="roundID-insert">Round ID:</label>
 
-                    <select name="roundID" id="roundID_to_update">
+                    <select name="roundID-insert" id="roundID-insert">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -49,9 +52,8 @@
                     </select>
                 </div>
                 <div class="form-example">
-                    <label for="questionID">Question ID:</label>
-
-                    <select name="questionID" id="questionID">
+                    <label for="questionID-insert">Question ID:</label>
+                    <select name="questionID-insert" id="questionID-insert">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -65,12 +67,12 @@
         </div>
         
         <div class="box">
-            <p><b>Update Round_Question</b></p>
+            <h2>Update Round_Question</h2>
             <form action="" method="get" class="form-example">
                 <div class="form-example">
-                    <label for="roundID">Round ID:</label>
+                    <label for="roundID-update">Round ID:</label>
 
-                    <select name="roundID" id="roundID">
+                    <select name="roundID-update" id="roundID-update">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -89,9 +91,9 @@
                 </div>
                 <br>
                 <div class="form-example">
-                    <label for="roundID">Change Round ID:</label>
+                    <label for="roundID-update-change">Change Round ID:</label>
 
-                    <select name="roundID" id="roundID">
+                    <select name="roundID-update-change" id="roundID-update-change">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -100,9 +102,9 @@
                     </select>
                 </div>
                 <div class="form-example">
-                    <label for="roundID">Change Question ID:</label>
+                    <label for="roundID-update">Change Question ID:</label>
 
-                    <select name="roundID" id="roundID">
+                    <select name="roundID-update" id="roundID-update">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -118,13 +120,13 @@
             </form>
         </div>
 
-        <div class="box-2">
-            <p><b>Delete Round_Question</b></p>
+        <div class="box">
+            <h2>Delete Round_Question</h2>
             <form action="" method="get" class="form-example">
                 <div class="form-example">
-                    <label for="roundID">Round ID:</label>
+                    <label for="roundID-delete">Round ID:</label>
 
-                    <select name="roundID" id="roundID">
+                    <select name="roundID-delete" id="roundID-delete">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -133,16 +135,15 @@
                     </select>
                 </div>
                 <div class="form-example">
-                    <label for="questionID">Question ID:</label>
+                    <label for="questionID-delete">Question ID:</label>
 
-                    <select name="questionID" id="questionID">
+                    <select name="questionID-delete" id="questionID-delete">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     </select>
                 </div>
 
-                <br>
                 <div class="form-example">
                 <input type="submit" value="Delete Rounds_Questions" />
                 </div>
