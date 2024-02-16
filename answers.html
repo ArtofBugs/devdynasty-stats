@@ -10,11 +10,11 @@
             margin-bottom: 5px;
         }
 
-        input[type="text"] {
+        /* input[type="text"] {
             width: 300px; 
             height: 60px; 
             padding: 5px;
-        }
+        } */
     </style>
     <body>
         <h1>Answers</h1>
@@ -118,7 +118,7 @@
                 <div class="form-example">
                     <label for="correctness">Correctness:</label>
 
-                    <select name="answerID" id="answerID">
+                    <select name="correctness" id="correctness">
                     <option value="0">0 (Not correct)</option>
                     <option value="1">1 (Correct)</option>
         
@@ -126,12 +126,11 @@
                 </div>
                 <div class="form-example">
                     <label for="text">Text: </label>
-                    <input type="text" name="text" id="text" required />
+                    <textarea name="text" id="text" required></textarea>
                 </div>
                 
-                <br>
                 <div class="form-example">
-                <input type="submit" value="Insert Question_Type" />
+                    <input type="submit" value="Insert Question_Type" />
                 </div>
             </form>
         </div>

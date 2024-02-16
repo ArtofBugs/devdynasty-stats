@@ -7,7 +7,7 @@ table {
 table, th, td {
     border: 1px solid black;
     padding: 3px;
-    margin: 10px;
+    max-width: 100%;
 }
 
 .box {
@@ -26,4 +26,22 @@ nav {
 
 h2 {
     margin: 15px;
+}
+
+label {
+    font-weight: normal;
+    font-size: medium;
+    margin: 5px;
+}
+
+select {
+    margin: 5px;
+}
+
+form {
+    display: grid;
+}
+
+input[type="submit"] {
+    margin: 10px;
 }
