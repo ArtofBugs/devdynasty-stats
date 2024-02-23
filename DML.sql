@@ -11,14 +11,14 @@ SELECT typeID, typeName
 ;
 
 -- get all answers and their information for the select Answers page
-SELECT Answers.answerID, Answers.answerText, Questions.questionID, Answers.correctness -- questionID is the FK from Questions
+SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness -- questionID is the FK from Questions
     FROM Answers
         INNER JOIN Questions
         ON Answers.questionID = Questions.questionID
 ;
 
 -- get all rounds_questions information for the select Rounds_Questions page
-SELECT Game_Rounds.roundID, Questions.questionID -- both are FKs
+SELECT Game_Rounds.roundID, Questions.questionText -- both are FKs
     FROM Game_Rounds
         INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
         INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
@@ -31,15 +31,12 @@ INSERT INTO Question_Types (typeName)
     VALUES (:typeNameInput)
 ;
 
--- get all question IDs and names to populate the Question ID dropdown
+-- get all questions to populate the Question Text dropdown
 -- on the Answers page and the Rounds_Questions page
-SELECT questionID, questionText
+SELECT questionText
     FROM Questions
     ORDER BY questionID
 ;
-
--- DO I NEED TO CREATE A QUERY FOR THE CORRECTNESS DROP DOWN?
--- I don't think it's required to always have a dynamic drop down for ALL
 
 -- insert correctness for a new answer on the Answers page
 INSERT INTO Answers (answerText, questionID, correctness)

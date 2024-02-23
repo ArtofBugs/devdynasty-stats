@@ -11,8 +11,8 @@ table, th, td {
 }
 
 .box {
-    width: fit-content;
-    height: fit-content;
+    max-width: fit-content;
+    max-height: fit-content;
     border: 1px solid black;
     margin: 10px;
     padding: 10px;
@@ -35,6 +35,7 @@ label {
 }
 
 select {
+    max-width: 80vw;
     margin: 5px;
 }
 
@@ -57,4 +58,9 @@ textarea {
 
 .form-example {
     margin: 5px;
+}
+
+option {
+    text-wrap: wrap;
+    max-width: 80vw;
 }
