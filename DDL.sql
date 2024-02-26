@@ -155,25 +155,25 @@ VALUES (
 (
     NULL,
     "When the input size is unknown",
-    4,
+    3,
     0
 ),
 (
     NULL,
     "When the input is nearly sorted",
-    4,
+    3,
     0
 ),
 (
     NULL,
     "When additional memory usage is a critical factor",
-    4,
+    3,
     0
 ),
 (
     NULL,
     "When the input size is small",
-    4,
+    3,
     1
 );
 
