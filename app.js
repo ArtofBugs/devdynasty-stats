@@ -75,6 +75,41 @@ app.get('/users', function(req, res) {
     })
 })
 
+app.get('/answers', function(req, res)
+    { 
+        let browse_answers = `
+        SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness FROM Answers 
+        INNER JOIN Questions ON Answers.questionID = Questions.questionID 
+        ORDER BY Answers.answerID;";
+        `
+        db.pool.query(browse_answers, function(error, rows, fields){    // Execute the query
+            res.render('layouts/answers', {data: rows, columns});                  // Render the index.hbs file, and also send the renderer
+        })  
+    });
+
+app.get('/question_types', function(req, res)
+    {
+        let browse_question_types = `
+        SELECT typeID, typeName FROM Question_Types 
+        ORDER BY typeID;";
+        `
+        db.pool.query(browse_question_types, function(error, rows, fields){    // Execute the query
+            res.render('layouts/question_types', {data: rows, columns});                  // Render the index.hbs file, and also send the renderer
+        })  
+    });
+   
+app.get('/rounds_questions', function(req, res)
+    {
+        let browse_rounds_questions = `
+        SELECT Game_Rounds.roundID, Questions.questionText FROM Game_Rounds 
+        INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID 
+        INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID ORDER BY Game_Rounds.roundID, Questions.questionID;";
+        `
+        db.pool.query(browse_rounds_questions, function(error, rows, fields){    // Execute the query
+            res.render('layouts/rounds_questions', {data: rows, columns});                  // Render the index.hbs file, and also send the renderer
+        })  
+    });
+
 /*
     LISTENER
 */
