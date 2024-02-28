@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
     })
 });
 
-app.use('/style.css', express.static("style.css"))
+app.use(express.static(__dirname + "/public"))
 
 app.get('/questions', function(req, res) {
     const browse_query = `
