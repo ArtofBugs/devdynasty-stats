@@ -12,7 +12,7 @@ app.set("view engine", "handlebars")
 app.use(express.json())
 
 PORT = 56789;
-const db = require('./db-connector')
+const db = require('./database/db-connector')
 
 /*
     ROUTES
@@ -83,7 +83,10 @@ app.get('/answers', function(req, res)
         ORDER BY Answers.answerID;";
         `
         db.pool.query(browse_answers, function(error, rows, fields){    // Execute the query
-            res.render('layouts/answers', {data: rows, columns});                  // Render the index.hbs file, and also send the renderer
+            res.status(200).render("answers", {
+                title: "Answers",
+                data: rows
+            });                
         })  
     });
 
@@ -94,7 +97,10 @@ app.get('/question_types', function(req, res)
         ORDER BY typeID;";
         `
         db.pool.query(browse_question_types, function(error, rows, fields){    // Execute the query
-            res.render('layouts/question_types', {data: rows, columns});                  // Render the index.hbs file, and also send the renderer
+            res.status(200).render("question_types", {
+                title: "Question Types",
+                data: rows
+            });                
         })  
     });
    
@@ -106,7 +112,10 @@ app.get('/rounds_questions', function(req, res)
         INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID ORDER BY Game_Rounds.roundID, Questions.questionID;";
         `
         db.pool.query(browse_rounds_questions, function(error, rows, fields){    // Execute the query
-            res.render('layouts/rounds_questions', {data: rows, columns});                  // Render the index.hbs file, and also send the renderer
+            res.status(200).render("rounds_questions", {
+                title: "Rounds Questions",
+                data: rows
+            });                 
         })  
     });
 
