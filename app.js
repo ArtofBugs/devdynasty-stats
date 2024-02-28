@@ -30,6 +30,8 @@ app.get('/', function(req, res) {
 
 app.use(express.static(__dirname + "/public"))
 
+
+// Pages  ---------------------------------------------------------------------
 app.get('/questions', function(req, res) {
     const browse_query = `
         SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
@@ -94,34 +96,34 @@ app.get('/users', function(req, res) {
 })
 
 app.get('/answers', function(req, res)
-    { 
+    {
         const browse_answers = `
-            SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness FROM Answers 
-            INNER JOIN Questions ON Answers.questionID = Questions.questionID 
+            SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness FROM Answers
+            INNER JOIN Questions ON Answers.questionID = Questions.questionID
             ORDER BY Answers.answerID;
         `
         db.pool.query(browse_answers, function(error, rows, fields) {
             res.status(200).render("answers", {
                 title: "Answers",
                 data: rows
-            });                
-        })  
+            });
+        })
     });
 
 app.get('/question_types', function(req, res)
     {
         const browse_question_types = `
-            SELECT typeID, typeName FROM Question_Types 
+            SELECT typeID, typeName FROM Question_Types
             ORDER BY typeID;
         `
         db.pool.query(browse_question_types, function(error, rows, fields) {
             res.status(200).render("question_types", {
                 title: "Question Types",
                 data: rows
-            });                
-        })  
+            });
+        })
     });
-   
+
 app.get('/rounds_questions', function(req, res)
     {
         const browse_rounds_questions = `
@@ -136,8 +138,8 @@ app.get('/rounds_questions', function(req, res)
             res.status(200).render("rounds_questions", {
                 title: "Rounds Questions",
                 data: rows
-            });                 
-        })  
+            });
+        })
     });
 
 app.post('/insert-game-round-form-ajax', function(req, res){
@@ -193,6 +195,24 @@ app.post('/insert-game-round-form-ajax', function(req, res){
         }
     })
 });
+
+// Delete ---------------------------------------------------------------------
+// Delete routes adapted from sample code here:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#create-a-delete-route
+app.delete('/delete-round/', function(req, res){
+    const data = req.body
+    const roundID = parseInt(data.id)
+    const deleteQuery = `DELETE FROM Game_Rounds where roundID = ?`
+
+    db.pool.query(deleteQuery, [roundID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            res.sendStatus(204)
+        }
+    })})
 
 /*
     LISTENER
