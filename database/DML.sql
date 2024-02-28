@@ -120,7 +120,7 @@ DELETE FROM Game_Rounds where roundID = :selectedRoundID;
 -- Delete the Question with the given ID (this deletion will be cascaded to Answers)
 DELETE FROM Questions where questionID = :selectedQuestionID;
 
--- Display a Game_Round for the Game Round updating page
+-- Display a Game_Round for Game Round updating results
 SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
 LEFT JOIN Users ON Game_Rounds.userID = Users.userID
 WHERE roundID = :selectedRoundID;
