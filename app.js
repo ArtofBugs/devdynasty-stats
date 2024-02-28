@@ -1,57 +1,83 @@
-// App.js
-
 /*
     SETUP
 */
 require('dotenv').config()
 
-var express = require('express');   // We are using the express library for the web server
-var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 56789;                // Set a port number at the top so it's easy to change in the future
+const express = require('express');
+const exphbs = require('express-handlebars')
+const app = express();
 
-var db = require('./db-connector')
+app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }))
+app.set("view engine", "handlebars")
+app.use(express.json())
+
+PORT = 56789;
+const db = require('./db-connector')
 
 /*
     ROUTES
 */
-// app.get('/', function(req, res)                 // This is the basic syntax for what is called a 'route'
-//     {
-//         res.send("The server is running!")      // This function literally sends the string "The server is running!" to the computer
-//     });                                         // requesting the web site.
+app.get('/', function(req, res) {
+    res.status(200).render("home", {
+        title: "Home"
+    })
+});
+
+app.use('/style.css', express.static("style.css"))
+
+app.get('/questions', function(req, res) {
+    const browse_query = `
+        SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
+        INNER JOIN Question_Types ON Questions.typeID = Question_Types.typeID
+        ORDER BY Questions.questionID;
+    `
+    db.pool.query(browse_query, function(error, rows, fields) {
+        if (error) {
+            console.error(error)
+        }
+        res.status(200).render("questions", {
+            title: "Questions",
+            data: rows
+        })
+    })
+})
+
+app.get('/game_rounds', function(req, res) {
+    const browse_query = `
+        SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
+        LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        ORDER BY Game_Rounds.roundID;
+    `
+    db.pool.query(browse_query, function(error, rows, fields) {
+        if (error) {
+            console.error(error)
+        }
+        res.status(200).render("game_rounds", {
+            title: "Game Rounds",
+            data: rows
+        })
+    })
+})
+
+app.get('/users', function(req, res) {
+    const browse_query = `
+        SELECT userID, username, password FROM Users
+        ORDER BY userID;
+    `
+    db.pool.query(browse_query, function(error, rows, fields) {
+        if (error) {
+            console.error(error)
+        }
+        res.status(200).render("users", {
+            title: "Users",
+            data: rows
+        })
+    })
+})
 
 /*
     LISTENER
 */
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+app.listen(PORT, function() {
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
-
-app.get('/', function(req, res)
-    {
-        // Define our queries
-        query1 = 'DROP TABLE IF EXISTS diagnostic;';
-        query2 = 'CREATE TABLE diagnostic(id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(255) NOT NULL);';
-        query3 = 'INSERT INTO diagnostic (text) VALUES ("MySQL is working!")';
-        query4 = 'SELECT * FROM diagnostic;';
-
-        // Execute every query in an asynchronous manner, we want each query to finish before the next one starts
-
-        // DROP TABLE...
-        db.pool.query(query1, function (err, results, fields){
-
-            // CREATE TABLE...
-            db.pool.query(query2, function(err, results, fields){
-
-                // INSERT INTO...
-                db.pool.query(query3, function(err, results, fields){
-
-                    // SELECT *...
-                    db.pool.query(query4, function(err, results, fields){
-
-                        // Send the results to the browser
-                        res.send(JSON.stringify(results));
-                    });
-                });
-            });
-        });
-    });
