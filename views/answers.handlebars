@@ -1,78 +1,47 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>DevDynasty Question Stats - Answers</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>Answers</h1>
-        <nav>[ <a href="Users.html">Users</a> | <a href="Questions.html">Questions</a> | <a href="answers.html">Answers</a> | <a href="question_types.html">Question_Types</a> | <a href="Game_Rounds.html">Game_Rounds</a> | <a href="rounds_questions.html">Rounds_Questions</a> ]</nav>
-        <div class="box">
-            <h2>Browse Answers</h2>
-            {{!-- Create a table --}}
-            <table>
+<div class="box">
+    <h2>Browse Answers</h2>
+    <table>
+        {{> browse_header}}
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{#if this.answerID}}{{this.answerID}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.answerText}}{{this.answerText}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.correctness}}{{this.correctness}}{{else}}0{{/if}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
-                {{!-- Header section --}}
-                <thead>
+<div class="box">
+    <h2>Insert Answer<h2>
+    <form action="" method="get" class="form-example">
+        <div class="form-example">
+            <label for="questionID">Question Text:</label>
+            <select name="questionID" id="questionID">
+            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
+            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
+            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+            </select>
+        </div>
+        <div class="form-example">
+            <label for="correctness">Correctness:</label>
 
-                    {{!-- For just the first row, we print each key of the row object as a header cell so we
-                    know what each column means when the page renders --}}
-                    <tr>
-                        {{#each data.[0]}}
-                        <th>
-                            {{@key}}
-                        </th>
-                        {{/each}}
-                    </tr>
-                </thead>
+            <select name="correctness" id="correctness">
+            <option value="0">0 (Not correct)</option>
+            <option value="1">1 (Correct)</option>
 
-                {{!-- Body section --}}
-                <tbody>
-
-                    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-                    {{#each data}}
-                    <tr>
-                        <td>{{#if this.answerID}}{{this.answerID}}{{else}}NULL{{/if}}</td>
-                        <td>{{#if this.answerText}}{{this.answerText}}{{else}}NULL{{/if}}</td>
-                        <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
-                        <td>{{#if this.correctness}}{{this.correctness}}{{else}}0{{/if}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            </select>
+        </div>
+        <div class="textarea-input">
+            <label for="text">Answer text: </label>
+            <textarea name="text" id="text" required></textarea>
         </div>
         
-        <div class="box">
-            <h2>Insert Answer<h2>
-            <form action="" method="get" class="form-example">
-                <div class="form-example">
-                    <label for="questionID">Question Text:</label>
-                    <select name="questionID" id="questionID">
-                    <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
-                    <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
-                    <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
-                    </select>
-                </div>
-                <div class="form-example">
-                    <label for="correctness">Correctness:</label>
-
-                    <select name="correctness" id="correctness">
-                    <option value="0">0 (Not correct)</option>
-                    <option value="1">1 (Correct)</option>
-        
-                    </select>
-                </div>
-                <div class="textarea-input">
-                    <label for="text">Answer text: </label>
-                    <textarea name="text" id="text" required></textarea>
-                </div>
-                
-                <div class="form-example">
-                    <input type="submit" value="Insert Question_Type" />
-                </div>
-            </form>
+        <div class="form-example">
+            <input type="submit" value="Insert Question_Type" />
         </div>
-        
-
-    </body>
-</html>
+    </form>
+</div>
