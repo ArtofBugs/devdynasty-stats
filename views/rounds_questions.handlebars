@@ -1,0 +1,125 @@
+<div class="box">
+    <h2>Browse Rounds_Questions</h2>
+    <table>
+        {{> browse_header}}
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{#if this.roundID}}{{this.roundID}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div class="box">
+    <h2>Insert Round_Question</h2>
+    <form action="" method="get" class="form-example">
+        <div class="form-example">
+            <label for="roundID-insert">Round ID:</label>
+
+            <select name="roundID-insert" id="roundID-insert">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-example">
+            <label for="questionID-insert">Question Text:</label>
+            <select name="questionID-insert" id="questionID-insert">
+            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
+            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
+            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+            </select>
+        </div>
+        <br>
+        <div class="form-example">
+        <input type="submit" value="Insert Rounds_Questions" />
+        </div>
+    </form>
+</div>
+
+<div class="box">
+    <h2>Update Round_Question</h2>
+    <form action="" method="get" class="form-example">
+        <div class="form-example">
+            <label for="roundID-update">Round ID:</label>
+
+            <select name="roundID-update" id="roundID-update">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-example">
+            <label for="questionID">Question Text:</label>
+
+            <select name="questionID" id="questionID">
+            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
+            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
+            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+            </select>
+        </div>
+        <br>
+        <div class="form-example">
+            <label for="roundID-update-change">Change Round ID:</label>
+
+            <select name="roundID-update-change" id="roundID-update-change">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-example">
+            <label for="questionID-update">Change Question Text:</label>
+
+            <select name="questionID-update" id="questionID-update">
+            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
+            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
+            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+            </select>
+        </div>
+
+        <br>
+        <div class="form-example">
+        <input type="submit" value="Update Rounds_Questions" />
+        </div>
+    </form>
+</div>
+
+<div class="box">
+    <h2>Delete Round_Question</h2>
+    <form action="" method="get" class="form-example">
+        <div class="form-example">
+            <label for="roundID-delete">Round ID:</label>
+
+            <select name="roundID-delete" id="roundID-delete">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-example">
+            <label for="questionID-delete">Question Text:</label>
+
+            <select name="questionID-delete" id="questionID-delete">
+            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
+            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
+            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+            </select>
+        </div>
+
+        <div class="form-example">
+        <input type="submit" value="Delete Rounds_Questions" />
+        </div>
+    </form>
+</div>

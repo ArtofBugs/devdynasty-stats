@@ -12,7 +12,7 @@ app.set("view engine", "handlebars")
 app.use(express.json())
 
 PORT = 56789;
-const db = require('./db-connector')
+const db = require('./database/db-connector')
 
 /*
     ROUTES
@@ -74,6 +74,53 @@ app.get('/users', function(req, res) {
         })
     })
 })
+
+app.get('/answers', function(req, res)
+    { 
+        const browse_answers = `
+            SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness FROM Answers 
+            INNER JOIN Questions ON Answers.questionID = Questions.questionID 
+            ORDER BY Answers.answerID;
+        `
+        db.pool.query(browse_answers, function(error, rows, fields) {
+            res.status(200).render("answers", {
+                title: "Answers",
+                data: rows
+            });                
+        })  
+    });
+
+app.get('/question_types', function(req, res)
+    {
+        const browse_question_types = `
+            SELECT typeID, typeName FROM Question_Types 
+            ORDER BY typeID;
+        `
+        db.pool.query(browse_question_types, function(error, rows, fields) {
+            res.status(200).render("question_types", {
+                title: "Question Types",
+                data: rows
+            });                
+        })  
+    });
+   
+app.get('/rounds_questions', function(req, res)
+    {
+        const browse_rounds_questions = `
+            SELECT Game_Rounds.roundID, Questions.questionText
+            FROM Game_Rounds
+                INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
+                INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+            ORDER BY Game_Rounds.roundID, Questions.questionID
+            ;
+        `
+        db.pool.query(browse_rounds_questions, function(error, rows, fields){    // Execute the query
+            res.status(200).render("rounds_questions", {
+                title: "Rounds Questions",
+                data: rows
+            });                 
+        })  
+    });
 
 /*
     LISTENER
