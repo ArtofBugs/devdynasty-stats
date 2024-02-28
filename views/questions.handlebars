@@ -5,9 +5,9 @@
     <tbody>
         {{#each data}}
         <tr>
-            <td>{{this.questionID}}</td>
-            <td>{{this.questionText}}</td>
-            <td>{{this.typeName}}</td>
+            <td>{{#if this.questionID}}{{this.username}}{{else}}NULL{{/if}}</td>
+            <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
+            <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
             <td><button id="delete">Delete</button></td>
         </tr>
         {{/each}}

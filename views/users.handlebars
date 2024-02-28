@@ -5,9 +5,9 @@
         <tbody>
             {{#each data}}
             <tr>
-                <td>{{this.userID}}</td>
-                <td>{{this.username}}</td>
-                <td>{{this.password}}</td>
+                <td>{{#if this.userID}}{{this.userID}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.username}}{{this.username}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.password}}{{this.password}}{{else}}NULL{{/if}}</td>
                 <td><button id="delete">Delete</button></td>
             </tr>
             {{/each}}

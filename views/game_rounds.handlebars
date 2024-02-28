@@ -5,10 +5,10 @@
         <tbody>
             {{#each data}}
             <tr>
-                <td>{{this.roundID}}</td>
-                <td>{{this.username}}</td>
-                <td>{{this.score}}</td>
-                <td>{{this.time}}</td>
+                <td>{{#if this.roundID}}{{this.roundID}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.username}}{{this.username}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.score}}{{this.score}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</td>
                 <td><button id="delete">Delete</button></td>
             </tr>
             {{/each}}
