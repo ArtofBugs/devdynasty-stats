@@ -1,4 +1,19 @@
-{{> browse title="Questions"}}
+<div class="box">
+<h2>Browse Questions</h2>
+<table>
+    {{> browse_header}}
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.questionID}}</td>
+            <td>{{this.questionText}}</td>
+            <td>{{this.typeName}}</td>
+            <td><button id="delete">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</div>
 
 <div class="box">
 <h2>Insert Question</h2>
@@ -15,3 +30,4 @@
     </div>
     <input type="submit">
 </form>
+</div>
