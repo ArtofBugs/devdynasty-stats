@@ -85,7 +85,7 @@ SELECT userID, username, password FROM Users
 ORDER BY userID;
 
 -- Get all Questions and their text and types for display on the Questions page
-SELECT Questions.questionID, Questions.questionText, Question_Types.typeID FROM Questions
+SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
 INNER JOIN Question_Types ON Questions.typeID = Question_Types.typeID
 ORDER BY Questions.questionID;
 
