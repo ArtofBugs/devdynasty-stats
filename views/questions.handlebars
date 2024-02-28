@@ -1,0 +1,33 @@
+<div class="box">
+<h2>Browse Questions</h2>
+<table>
+    {{> browse_header}}
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.questionID}}</td>
+            <td>{{this.questionText}}</td>
+            <td>{{this.typeName}}</td>
+            <td><button id="delete">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</div>
+
+<div class="box">
+<h2>Insert Question</h2>
+<form action="" method="get" class="form-example">
+    <div class="textarea-input">
+        <label for="text">Question text: </label>
+        <textarea name="text" id="text" required></textarea>
+    </div>
+    <div class="form-example">
+        <label for="type">Type: </label><select name="type" id="type" required>
+            <option selected>Behavioral</option>
+            <option>Technical</option>
+        </select>
+    </div>
+    <input type="submit">
+</form>
+</div>

@@ -1,0 +1,25 @@
+<div class="box">
+    <h2>Browse Users</h2>
+    <table>
+        {{> browse_header}}
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.userID}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.password}}</td>
+                <td><button id="delete">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div class="box">
+    <h2>Insert User</h2>
+    <form action="" method="get" class="form-example">
+        <div class="form-example"><label for="name">Username: </label><input type="text" name="name" id="name" required></div>
+        <div class="form-example"><label for="password">Password: </label><input type="text" name="password" id="name" required></div>
+        <input type="submit">
+    </form>
+</div>

@@ -1,0 +1,31 @@
+{
+  "name": "devdynasty-stats",
+  "version": "0.1.0",
+  "description": "Database manager for DevDynasty database backend.",
+  "main": "app.js",
+  "scripts": {
+    "start": "forever start app.js",
+    "dev": "nodemon app.js",
+    "test": "echo 'No tests found.'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtofBugs/devdynasty-stats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArtofBugs/devdynasty-stats/issues"
+  },
+  "homepage": "https://github.com/ArtofBugs/devdynasty-stats#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
