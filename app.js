@@ -188,10 +188,13 @@ app.post('/insert-game-round-form-ajax', function(req, res){
         else
         {
             // If there was no error, perform a SELECT * on Game_Rounds
-            let show_game_rounds = `SELECT * FROM Game_Rounds;`;
+            let show_game_rounds = `
+                SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
+                LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+                WHERE Game_Rounds.roundID = ${userID};
+            `;
             db.pool.query(show_game_rounds, function(error, rows, fields){
                 
-
                 // If there was an error on the second query, send a 400
                 if (error) {
                     // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
