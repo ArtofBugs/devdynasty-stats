@@ -80,9 +80,9 @@ addRowToTable = (data) => {
 
     // Fill the cells with correct data
     roundIDCell.innerText = newRow.roundID;
-    usernameCell.innerText = newRow.username;
-    scoreCell.innerText = newRow.score;
-    timeCell.innerText = newRow.time;
+    usernameCell.innerText = newRow.username === null ? "NULL" : newRow.username;
+    scoreCell.innerText = newRow.score === null ? "NULL" : newRow.score
+    timeCell.innerText = newRow.time === null ? "NULL" : newRow.time
     deleteCell.innerHTML = `<button onclick="deleteRound(${newRow.roundID})">Delete</button>`;
 
     // Add the cells to the row
