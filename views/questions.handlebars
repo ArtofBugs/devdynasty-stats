@@ -4,15 +4,16 @@
     {{> browse_header button=true}}
     <tbody>
         {{#each data}}
-        <tr>
-            <td>{{#if this.questionID}}{{this.username}}{{else}}NULL{{/if}}</td>
+        <tr row-id={{this.questionID}}>
+            <td>{{#if this.questionID}}{{this.questionID}}{{else}}NULL{{/if}}</td>
             <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
             <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
-            <td><button id="delete">Delete</button></td>
+            <td><button onclick="deleteQuestion({{this.questionID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="/js/delete_question.js" defer></script>
 </div>
 
 <div class="box">
