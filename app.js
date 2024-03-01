@@ -54,7 +54,7 @@ app.get('/game_rounds', function(req, res) {
         ORDER BY Game_Rounds.roundID;
     `;
 
-    let get_usernames = `SELECT username, userID from Users ORDER BY userID;`; 
+    let get_usernames = `SELECT username from Users ORDER BY userID;`; 
 
     db.pool.query(browse_query, function(error, rows, fields) {
         if (error) {
@@ -67,19 +67,6 @@ app.get('/game_rounds', function(req, res) {
         db.pool.query(get_usernames, (error, rows, fields) => {
             // save the usernames
             let usernames = rows;
-
-            // construct an object for reference in the table
-            // array.map is for doing something with each element of an array
-            let usermap = {}
-            usernames.map(user => {
-                let id = parseInt(user.userID, 10);
-                usermap[id] = user["username"];
-            })
-
-            // overwrite the user ID with the username in the Game Round object
-            game_rounds = game_rounds.map(game_round => {
-                return Object.assign(game_round, {userID: usermap[game_round.userID]})
-            })
 
             return res.status(200).render("game_rounds", {
                 title: "Game Rounds",
