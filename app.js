@@ -159,7 +159,6 @@ app.post('/insert-game-round-form-ajax', function(req, res){
         score = null
     }
 
-
     let time = data.time
     if (time == '') {
         time = null
@@ -182,6 +181,13 @@ app.post('/insert-game-round-form-ajax', function(req, res){
                 LEFT JOIN Users ON Game_Rounds.userID = Users.userID
                 WHERE Game_Rounds.userID = ${userID};
             `
+            if (userID === null) {
+                show_game_rounds = `
+                    SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
+                    LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+                    WHERE Game_Rounds.userID IS NULL;
+                `
+            }
             db.pool.query(show_game_rounds, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
