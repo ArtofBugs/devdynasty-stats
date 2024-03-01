@@ -30,7 +30,7 @@ insertGameRoundForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        console.log(xhttp.responseText);
+        // console.log(xhttp.responseText);
 
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
@@ -65,27 +65,30 @@ addRowToTable = (data) => {
     
     let newRow = parsedData[parsedData.length - 1]
 
-    // console.log(newRow)
+    console.log(newRow)
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
 
     let roundIDCell = document.createElement("TD");
-    let userIDCell = document.createElement("TD");
+    let usernameCell = document.createElement("TD");
     let scoreCell = document.createElement("TD");
     let timeCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
     roundIDCell.innerText = newRow.roundID;
-    userIDCell.innerText = newRow.userID;
+    usernameCell.innerText = newRow.username;
     scoreCell.innerText = newRow.score;
     timeCell.innerText = newRow.time;
+    deleteCell.innerHTML = `<button>Delete</button>`;
 
     // Add the cells to the row 
     row.appendChild(roundIDCell);
-    row.appendChild(userIDCell);
+    row.appendChild(usernameCell);
     row.appendChild(scoreCell);
     row.appendChild(timeCell);
+    row.appendChild(deleteCell);
     
     // Add the row to the table
     currentTable.appendChild(row);

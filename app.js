@@ -73,7 +73,7 @@ app.get('/game_rounds', function(req, res) {
             let usermap = {}
             usernames.map(user => {
                 let id = parseInt(user.userID, 10);
-                usermap[id] = user["username"];  
+                usermap[id] = user["username"];
             })
 
             // overwrite the user ID with the username in the Game Round object
@@ -161,20 +161,16 @@ app.post('/insert-game-round-form-ajax', function(req, res){
     let userID = parseInt(data.userID);
     if (isNaN(userID))
     {
-        userID = 'NULL'
+        userID = null
     } 
 
     let score = parseInt(data.score);
     if (isNaN(score))
     {
-        score = 'NULL'
+        score = null
     }
 
-    let time = data.time;
-    if (isNaN(time))
-    {
-        time = 'NULL'
-    }
+    let time = data.time || "NULL";
 
     // Create the query and run it on the database
     let insert_game_rounds = `INSERT INTO Game_Rounds (userID, score, time) VALUES ('${userID}', ${score}, '${time}')`;
@@ -191,7 +187,7 @@ app.post('/insert-game-round-form-ajax', function(req, res){
             let show_game_rounds = `
                 SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
                 LEFT JOIN Users ON Game_Rounds.userID = Users.userID
-                WHERE Game_Rounds.roundID = ${userID};
+                WHERE Game_Rounds.userID = ${userID};
             `;
             db.pool.query(show_game_rounds, function(error, rows, fields){
                 

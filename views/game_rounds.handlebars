@@ -7,7 +7,7 @@
             <tr>
                 <td>{{#if this.roundID}}{{this.roundID}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.username}}{{this.username}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.score}}{{this.score}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.score includeZero=true}}{{this.score}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</td>
                 <td><button id="delete">Delete</button></td>
             </tr>
