@@ -18,11 +18,23 @@ function deleteRound(roundID) {
     })
 }
 
+function deleteDropdownItem(roundID) {
+    const dropdown = document.getElementById("round-id-update-select");
+    for (let i = 0; i < dropdown.length; i++) {
+        if (Number(dropdown.options[i].value) === Number(roundID)) {
+            dropdown[i].remove();
+            break;
+        }
+
+    }
+}
+
 function deleteRow(roundID) {
     const table = document.getElementById("game-rounds-table")
     for (var i = 0, row; row = table.rows[i]; i++) {
         if (table.rows[i].getAttribute("row-id") == roundID) {
             table.deleteRow(i);
+            deleteDropdownItem(roundID)
             break;
         }
     }
