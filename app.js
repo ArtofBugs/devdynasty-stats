@@ -16,7 +16,7 @@ app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
 app.use(express.json())
 
-PORT = 56789
+PORT = process.env.PORT
 const db = require('./database/db-connector')
 
 /*
