@@ -7,6 +7,11 @@ const express = require('express');
 const exphbs = require('express-handlebars')
 const app = express();
 
+// enable express to handle JSON data and form data
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static(__dirname + "/public"))
+
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
 app.use(express.json())
@@ -47,14 +52,27 @@ app.get('/game_rounds', function(req, res) {
         SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
         LEFT JOIN Users ON Game_Rounds.userID = Users.userID
         ORDER BY Game_Rounds.roundID;
-    `
+    `;
+
+    let get_usernames = `SELECT username from Users ORDER BY userID;`; 
+
     db.pool.query(browse_query, function(error, rows, fields) {
         if (error) {
             console.error(error)
         }
-        res.status(200).render("game_rounds", {
-            title: "Game Rounds",
-            data: rows
+
+        // save Game Rounds
+        let game_rounds = rows;
+
+        db.pool.query(get_usernames, (error, rows, fields) => {
+            // save the usernames
+            let usernames = rows;
+
+            return res.status(200).render("game_rounds", {
+                title: "Game Rounds",
+                data: game_rounds,
+                usernames: usernames
+            });
         })
     })
 })
@@ -121,6 +139,60 @@ app.get('/rounds_questions', function(req, res)
             });                 
         })  
     });
+
+app.post('/insert-game-round-form-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let userID = parseInt(data.userID);
+    if (isNaN(userID))
+    {
+        userID = null
+    } 
+
+    let score = parseInt(data.score);
+    if (isNaN(score))
+    {
+        score = null
+    }
+
+    let time = data.time || "NULL";
+
+    // Create the query and run it on the database
+    let insert_game_rounds = `INSERT INTO Game_Rounds (userID, score, time) VALUES ('${userID}', ${score}, '${time}')`;
+    db.pool.query(insert_game_rounds, [userID, score, time], function(error, rows, fields){
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Game_Rounds
+            let show_game_rounds = `
+                SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
+                LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+                WHERE Game_Rounds.userID = ${userID};
+            `;
+            db.pool.query(show_game_rounds, function(error, rows, fields){
+                
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows); 
+                }
+            })
+        }
+    })
+});
 
 /*
     LISTENER
