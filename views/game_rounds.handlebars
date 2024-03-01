@@ -21,14 +21,14 @@
     <form id="insert-game-round-form-ajax" class="form-example">
         <div>
             <label for="input-userID">Username: </label>
-            <select name="input-userID" id="input-userID-ajax">
+            <select name="input-userID" id="input-userID">
                 <option value="">Select a username</option>
                 {{#each usernames}}
                 <option value="{{this.userID}}">{{this.username}}</option>
                 {{/each}}
             </select>
         </div>
-
+        
         <div>
             <label for="input-score">Score: </label>
             <input type="text" name="input-score" id="input-score">

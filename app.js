@@ -162,7 +162,7 @@ app.post('/insert-game-round-form-ajax', function(req, res){
     if (isNaN(userID))
     {
         userID = 'NULL'
-    }
+    } 
 
     let score = parseInt(data.score);
     if (isNaN(score))
@@ -170,9 +170,15 @@ app.post('/insert-game-round-form-ajax', function(req, res){
         score = 'NULL'
     }
 
+    let time = data.time;
+    if (isNaN(time))
+    {
+        time = 'NULL'
+    }
+
     // Create the query and run it on the database
-    insert_game_rounds = `INSERT INTO Game_Rounds (userID, score, time) VALUES ('${userID}', ${score}, '${time}')`;
-    db.pool.query(insert_game_rounds, function(error, rows, fields){
+    let insert_game_rounds = `INSERT INTO Game_Rounds (userID, score, time) VALUES ('${userID}', ${score}, '${time}')`;
+    db.pool.query(insert_game_rounds, [userID, score, time], function(error, rows, fields){
         // Check to see if there was an error
         if (error) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -182,8 +188,10 @@ app.post('/insert-game-round-form-ajax', function(req, res){
         else
         {
             // If there was no error, perform a SELECT * on Game_Rounds
-            show_game_rounds = `SELECT * FROM Game_Rounds;`;
+            let show_game_rounds = `SELECT * FROM Game_Rounds;`;
             db.pool.query(show_game_rounds, function(error, rows, fields){
+                
+
                 // If there was an error on the second query, send a 400
                 if (error) {
                     // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -193,7 +201,7 @@ app.post('/insert-game-round-form-ajax', function(req, res){
                 // If all went well, send the results of the query back.
                 else
                 {
-                    res.send(rows);
+                    res.send(rows); 
                 }
             })
         }
