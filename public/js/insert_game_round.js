@@ -1,3 +1,6 @@
+// All code here unless otherwise noted adapted from sample code found here:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+
 // Get the objects we need to modify
 let insertGameRoundForm = document.getElementById('insert-game-round-form-ajax');
 
@@ -95,6 +98,8 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
+    // Code adapted from here:
+    // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
     // Start of new Step 8 code for adding new data to the dropdown menu for updating people
 
     // Find drop down menu, create a new option, fill data in the option (full name, id),

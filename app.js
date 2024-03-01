@@ -49,6 +49,8 @@ app.get('/questions', function(req, res) {
     })
 })
 
+// Code adapted from:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 app.get('/game_rounds', function(req, res) {
     const browse_query = `
         SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
@@ -142,6 +144,8 @@ app.get('/rounds_questions', function(req, res)
         })
     })
 
+// Code adapted from:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 app.post('/insert-game-round-form-ajax', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
