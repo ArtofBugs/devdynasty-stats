@@ -159,10 +159,14 @@ app.post('/insert-game-round-form-ajax', function(req, res){
         score = null
     }
 
-    let time = data.time || "NULL"
+
+    let time = data.time
+    if (time == '') {
+        time = null
+    }
 
     // Create the query and run it on the database
-    let insert_game_rounds = `INSERT INTO Game_Rounds (userID, score, time) VALUES ('${userID}', ${score}, '${time}')`
+    let insert_game_rounds = `INSERT INTO Game_Rounds (userID, score, time) VALUES ( ? , ? , ? )`
     db.pool.query(insert_game_rounds, [userID, score, time], function(error, rows, fields){
         // Check to see if there was an error
         if (error) {
