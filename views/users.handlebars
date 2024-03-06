@@ -1,26 +1,28 @@
 <div class="box">
     <h2>Browse Users</h2>
-    <table>
+    <table id="users-table">
         {{> browse_header button=true}}
         <tbody>
             {{#each data}}
             <tr row-id={{this.userID}}>
                 <td>{{#if this.userID}}{{this.userID}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.username}}{{this.username}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.password}}{{this.password}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.username includeZero=true}}{{this.username}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.password includeZero=true}}{{this.password}}{{else}}NULL{{/if}}</td>
                 <td><button onclick="deleteUser({{this.userID}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-    <script src="/js/delete_user.js" type="text/js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" defer></script>
+    <script src="/js/delete_user.js" defer></script>
 </div>
 
 <div class="box">
     <h2>Insert User</h2>
-    <form action="" method="get" class="form-example">
-        <div class="form-example"><label for="name">Username: </label><input type="text" name="name" id="name" required></div>
-        <div class="form-example"><label for="password">Password: </label><input type="text" name="password" id="name" required></div>
+    <form id="insert-user-form-ajax" class="form-example">
+        <div class="form-example"><label for="user-name-input">Username: </label><input type="text" name="name" id="user-name-input" required></div>
+        <div class="form-example"><label for="user-password-input">Password: </label><input type="text" name="password" id="user-password-input" required></div>
         <input type="submit">
     </form>
+    <script src="/js/insert-user.js"></script>
 </div>
