@@ -6,7 +6,7 @@
             {{#each data}}
             <tr row-id={{this.roundID}}>
                 <td>{{#if this.roundID}}{{this.roundID}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.username}}{{this.username}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.username includeZero=true}}{{this.username}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.score includeZero=true}}{{this.score}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</td>
                 <td><button onclick="deleteRound({{this.roundID}})">Delete</button></td>

@@ -6,8 +6,8 @@
             {{#each data}}
             <tr row-id={{this.userID}}>
                 <td>{{#if this.userID}}{{this.userID}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.username}}{{this.username}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.password}}{{this.password}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.username includeZero=true}}{{this.username}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.password includeZero=true}}{{this.password}}{{else}}NULL{{/if}}</td>
                 <td><button onclick="deleteUser({{this.userID}})">Delete</button></td>
             </tr>
             {{/each}}

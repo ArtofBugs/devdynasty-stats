@@ -5,8 +5,8 @@
         <tbody>
             {{#each data}}
             <tr>
-                <td>{{#if this.typeID}}{{this.typeID}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.typeID includeZero=true}}{{this.typeID}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.typeName includeZero=true}}{{this.typeName}}{{else}}NULL{{/if}}</td>
             </tr>
             {{/each}}
         </tbody>

@@ -6,9 +6,9 @@
             {{#each data}}
             <tr>
                 <td>{{#if this.answerID}}{{this.answerID}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.answerText}}{{this.answerText}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
-                <td>{{#if this.correctness}}{{this.correctness}}{{else}}0{{/if}}</td>
+                <td>{{#if this.answerText includeZero=true}}{{this.answerText}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.questionText includeZero=true}}{{this.questionText}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.correctness includeZero=true}}{{this.correctness}}{{else}}0{{/if}}</td>
             </tr>
             {{/each}}
         </tbody>
