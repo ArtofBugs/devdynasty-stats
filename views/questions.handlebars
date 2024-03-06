@@ -6,8 +6,8 @@
         {{#each data}}
         <tr row-id={{this.questionID}}>
             <td>{{#if this.questionID}}{{this.questionID}}{{else}}NULL{{/if}}</td>
-            <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
-            <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
+            <td>{{#if this.questionText includeZero=true}}{{this.questionText}}{{else}}NULL{{/if}}</td>
+            <td>{{#if this.typeName includeZero=true}}{{this.typeName}}{{else}}NULL{{/if}}</td>
             <td><button onclick="deleteQuestion({{this.questionID}})">Delete</button></td>
         </tr>
         {{/each}}

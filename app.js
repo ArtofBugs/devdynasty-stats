@@ -72,6 +72,10 @@ app.get('/game_rounds', function(req, res) {
             // save the usernames
             let usernames = rows
 
+            if (error) {
+                console.error(error)
+            }
+
             return res.status(200).render("game_rounds", {
                 title: "Game Rounds",
                 data: game_rounds,
@@ -104,10 +108,28 @@ app.get('/answers', function(req, res)
             INNER JOIN Questions ON Answers.questionID = Questions.questionID
             ORDER BY Answers.answerID;
         `
+        let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;`
+
         db.pool.query(browse_answers, function(error, rows, fields) {
-            res.status(200).render("answers", {
-                title: "Answers",
-                data: rows
+            if (error) {
+                console.error(error)
+            }
+
+            // save Answers
+            let answers = rows
+
+            db.pool.query(get_questionTexts, (error, rows, fields) => {
+                let questionTexts = rows
+
+                if (error) {
+                    console.error(error)
+                }
+
+                res.status(200).render("answers", {
+                    title: "Answers",
+                    data: answers,
+                    questionTexts: questionTexts
+                })
             })
         })
     })
@@ -210,6 +232,96 @@ app.post('/insert-game-round-form-ajax', function(req, res){
     })
 })
 
+app.post('/insert-user-form-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let username = data.username
+    let password = data.password
+
+    // Create the query and run it on the database
+    let insert_user = `INSERT INTO Users (username, password) VALUES (?, ?);`
+    db.pool.query(insert_user, [username, password], function(error, rows, fields) {
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Users
+            let show_users = `
+                SELECT Users.userID, Users.username, Users.password FROM Users
+                WHERE Users.username = '${username}';
+            `
+            db.pool.query(show_users, function(error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
+    })
+})
+
+app.post('/insert-answer-form-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let answerText = data.answerText
+    let questionID = data.questionID
+    let correctness = data.correctness
+
+    // Create the query and run it on the database
+    let insert_answer = `
+        INSERT INTO Answers (answerText, questionID, correctness)
+        VALUES (?, ?, ?)
+    ;`
+
+    db.pool.query(insert_answer, [answerText, questionID, correctness], function(error, rows, fields) {
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Answers
+            let show_answers = `
+                SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness
+                FROM Answers
+                    INNER JOIN Questions
+                    ON Answers.questionID = Questions.questionID
+                WHERE Answers.answerText = '${answerText}';
+            `
+            db.pool.query(show_answers, function(error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
+    })
+})
+
 // Delete ---------------------------------------------------------------------
 // Delete routes adapted from sample code here:
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#create-a-delete-route
@@ -219,6 +331,21 @@ app.delete('/delete-round/', function(req, res){
     const deleteQuery = `DELETE FROM Game_Rounds where roundID = ?`
 
     db.pool.query(deleteQuery, [roundID], function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else {
+            res.sendStatus(204)
+        }
+    })})
+
+app.delete('/delete-user/', function(req, res){
+    const data = req.body
+    const userID = parseInt(data.id)
+    const deleteQuery = `DELETE FROM Users where userID = ?`
+
+    db.pool.query(deleteQuery, [userID], function(error, rows, fields) {
         if (error) {
             console.log(error)
             res.sendStatus(400)

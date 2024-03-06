@@ -1,8 +1,10 @@
 <thead>
     <tr>
-        {{#each data.[0]}}
-        <th>{{@key}}</th>
-        {{/each}}
-        {{#if button}}<th></th>{{/if}}
+        {{#if data}}
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+            {{#if button}}<th></th>{{/if}}
+        {{else}}<th>No data to display</th>{{/if}}
     </tr>
 </thead>
