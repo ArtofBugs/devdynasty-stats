@@ -38,14 +38,72 @@ app.get('/questions', function(req, res) {
         INNER JOIN Question_Types ON Questions.typeID = Question_Types.typeID
         ORDER BY Questions.questionID;
     `
+
+    let get_typeNames = `SELECT typeID, typeName from Question_Types ORDER BY typeID;`
+
     db.pool.query(browse_query, function(error, rows, fields) {
         if (error) {
             console.error(error)
         }
-        res.status(200).render("questions", {
-            title: "Questions",
-            data: rows
-        })
+
+        // save Questions
+        let questions = rows
+
+        db.pool.query(get_typeNames, (error, rows, fields) => {
+            // save the usernames
+            let typeNames = rows
+
+            return res.status(200).render("questions", {
+                title: "Questions",
+                data: questions,
+                typeNames: typeNames
+            })
+        }) 
+    })
+})
+
+// Code adapted from:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+app.post('/insert-question', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let questionText = data.questionText
+    let typeID = data.typeID
+
+    // Create the query and run it on the database
+    let insert_question = `INSERT INTO Questions (questionText, typeID) VALUES ( ? , ? )`
+    db.pool.query(insert_question, [questionText, typeID], function(error, rows, fields){
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Question_Types
+            let show_questions = `
+                SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
+                LEFT JOIN Question_Types ON Questions.typeID = Question_Types.typeID
+                WHERE Questions.typeID = ${typeID}; 
+            `
+    
+            db.pool.query(show_questions, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
     })
 })
 
@@ -133,8 +191,6 @@ app.post('/insert-question-type', function(req, res){
     let data = req.body
 
     let typeName = data.name
-
-    console.log(typeName)
 
     // Create the query and run it on the database
     let insert_question_type = `INSERT INTO Question_Types (typeName) VALUES ( ? )`

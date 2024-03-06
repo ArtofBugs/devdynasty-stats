@@ -1,34 +1,36 @@
 <div class="box">
-<h2>Browse Questions</h2>
-<table>
-    {{> browse_header button=true}}
-    <tbody>
-        {{#each data}}
-        <tr row-id={{this.questionID}}>
-            <td>{{#if this.questionID}}{{this.questionID}}{{else}}NULL{{/if}}</td>
-            <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
-            <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
-            <td><button onclick="deleteQuestion({{this.questionID}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-<script src="/js/delete_question.js" defer></script>
+    <h2>Browse Questions</h2>
+    <table id="questions-table">
+        {{> browse_header button=true}}
+        <tbody>
+            {{#each data}}
+            <tr row-id={{this.questionID}}>
+                <td>{{#if this.questionID}}{{this.questionID}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.questionText}}{{this.questionText}}{{else}}NULL{{/if}}</td>
+                <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
+                <td><button onclick="deleteQuestion({{this.questionID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="/js/delete_question.js" defer></script>
 </div>
 
 <div class="box">
-<h2>Insert Question</h2>
-<form action="" method="get" class="form-example">
-    <div class="textarea-input">
-        <label for="text">Question text: </label>
-        <textarea name="text" id="text" required></textarea>
-    </div>
-    <div class="form-example">
-        <label for="type">Type: </label><select name="type" id="type" required>
-            <option selected>Behavioral</option>
-            <option>Technical</option>
-        </select>
-    </div>
-    <input type="submit">
-</form>
+    <h2>Insert Question</h2>
+    <form id="insert-question" class="form-example">
+        <div class="textarea-input">
+            <label for="input-questionText">Question text: </label>
+            <textarea name="input-questionText" id="input-questionText" required></textarea>
+        </div>
+        <div class="form-example">
+            <label for="input-typeID">Type: </label><select name="input-typeID" id="input-typeID" required>
+                {{#each typeNames}}
+                    <option value="{{this.typeID}}">{{this.typeName}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <input type="submit">
+    </form>
+    <script src="./js/insert_question.js" defer></script>
 </div>

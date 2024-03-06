@@ -2,32 +2,37 @@
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 
 // Get the objects we need to modify
-let insertQuestionTypeForm = document.getElementById('insert-question-type');
+let insertQuestionForm = document.getElementById('insert-question');
 
 // Modify the objects we need
-insertQuestionTypeForm.addEventListener("submit", function (e) {
+insertQuestionForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputName = document.getElementById("input-name");
+    let inputQuestionText = document.getElementById("input-questionText");
+    let inputTypeID = document.getElementById("input-typeID");
 
     // Get the values from the form fields
-    let typeNameValue = inputName.value;
+    let questionTextValue = inputQuestionText.value;
+    let typeIDValue = inputTypeID.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        name: typeNameValue,
+        questionText: questionTextValue,
+        typeID: typeIDValue,
     }
+
+    console.log(data)
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/insert-question-type", true);
+    xhttp.open("POST", "/insert-question", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        console.log(xhttp.responseText);
+        // console.log(xhttp.responseText);
 
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
@@ -35,7 +40,8 @@ insertQuestionTypeForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputName.value = '';
+            inputQuestionText.value = '';
+            inputTypeID.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -49,11 +55,11 @@ insertQuestionTypeForm.addEventListener("submit", function (e) {
 
 
 // Creates a single row from an Object representing a single record from
-// Question_Types
+// Game_Rounds
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("question-types-table");
+    let currentTable = document.getElementById("questions-table");
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
@@ -63,20 +69,26 @@ addRowToTable = (data) => {
 
     console.log(newRow)
 
-    // Create a row and 2 cells
+    // Create a row and 4 cells
     let row = document.createElement("TR");
-    row.setAttribute('type-id', newRow.typeID)
+    row.setAttribute('row-id', newRow.questionID)
 
-    let typeIDCell = document.createElement("TD");
+    let questionIDCell = document.createElement("TD");
+    let questionTextCell = document.createElement("TD");
     let typeNameCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    typeIDCell.innerText = newRow.typeID;
+    questionIDCell.innerText = newRow.questionID;
+    questionTextCell.innerText = newRow.questionText;
     typeNameCell.innerText = newRow.typeName;
+    deleteCell.innerHTML = `<button onclick="deleteRound(${newRow.questionID})">Delete</button>`;
 
     // Add the cells to the row
-    row.appendChild(typeIDCell);
+    row.appendChild(questionIDCell);
+    row.appendChild(questionTextCell);
     row.appendChild(typeNameCell);
+    row.appendChild(deleteCell);
 
     // Add the row to the table
     currentTable.appendChild(row);
