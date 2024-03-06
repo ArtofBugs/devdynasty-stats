@@ -14,13 +14,15 @@ updateRoundForm.addEventListener("submit", function (e) {
     const inputRoundID = document.getElementById("round-id-update-select")
     const inputRoundUsername = document.getElementById("round-username-select")
     const inputRoundScore = document.getElementById("round-score-input")
-    const inputRoundTime = document.getElementById("round-time-input")
+    let inputRoundHours = document.getElementById("round-input-hours")
+    let inputRoundMins = document.getElementById("round-input-mins")
+    let inputRoundSec = document.getElementById("round-input-sec")
 
     // Get the values from the form fields
     const roundIDValue = inputRoundID.value
     var roundUsernameValue = inputRoundUsername.value
     let roundScoreValue = parseInt(inputRoundScore.value)
-    var roundTimeValue = inputRoundTime.value
+    var roundTimeValue = inputRoundHours.value + ":" + inputRoundMins.value + ":" + inputRoundSec.value
 
     // abort if no valid number is chosen for round ID
 
