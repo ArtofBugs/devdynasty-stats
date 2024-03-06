@@ -37,8 +37,14 @@
         </div>
 
         <div>
-            <label for="input-time">Time (hh:mm:ss): </label>
-            <input type="text" name="input-time" id="input-time" pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]">
+            <label for="input-time">Time: </label>
+            <div id="input-time">
+                <input type="number" id="input-hours" class="input-time-field" placeholder="hh" min="0" max="838"></input>
+                :
+                <input type="number" id="input-mins" class="input-time-field" placeholder="mm" min="0" max="59"></input>
+                :
+                <input type="number" id="input-sec" class="input-time-field" placeholder="ss" min="0" max="59"></input>
+            </div>
         </div>
 
         <input type="submit">
@@ -69,7 +75,16 @@
             </select>
         </div>
         <div><label for="round-score-input">Score: </label><input type="number" name="round-score-input" id="round-score-input" min="0"></div>
-        <div><label for="round-time-input">Time (hh:mm:ss): </label><input type="text" name="round-time-input" id="round-time-input" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"></div>
+        <div>
+            <label for="round-time-input">Time: </label>
+            <div id="round-time-input">
+                <input type="number" id="round-input-hours" class="input-time-field" placeholder="hh" min="0" max="838"></input>
+                :
+                <input type="number" id="round-input-mins" class="input-time-field" placeholder="mm" min="0" max="59"></input>
+                :
+                <input type="number" id="round-input-sec" class="input-time-field" placeholder="ss" min="0" max="59"></input>
+            </div>
+        </div>
         <input type="submit">
     </form>
     <script src="./js/update_round.js" defer></script>

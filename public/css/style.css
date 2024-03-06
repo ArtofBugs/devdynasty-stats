@@ -64,3 +64,11 @@ option {
     text-wrap: wrap;
     max-width: 80vw;
 }
+
+#input-time, #round-time-input {
+    display: inline;
+}
+
+.input-time-field {
+    max-width: 5vw;
+}
