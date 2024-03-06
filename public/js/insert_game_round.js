@@ -12,12 +12,14 @@ insertGameRoundForm.addEventListener("submit", function (e) {
     // Get form fields we need to get data from
     let inputUserID = document.getElementById("input-userID");
     let inputScore = document.getElementById("input-score");
-    let inputTime = document.getElementById("input-time");
+    let inputHours = document.getElementById("input-hours")
+    let inputMins = document.getElementById("input-mins")
+    let inputSec = document.getElementById("input-sec")
 
     // Get the values from the form fields
     let userIDValue = inputUserID.value;
     let scoreValue = inputScore.value;
-    let timeValue = inputTime.value;
+    let timeValue = inputHours.value + ":" + inputMins.value + ":" + inputSec.value;
 
     // Put our data we want to send in a javascript object
     let data = {
