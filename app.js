@@ -210,6 +210,47 @@ app.post('/insert-game-round-form-ajax', function(req, res){
     })
 })
 
+app.post('/insert-user-form-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let username = data.username
+    let password = data.password
+
+    // Create the query and run it on the database
+    let insert_user = `INSERT INTO Users (username, password) VALUES (?, ?);`
+    db.pool.query(insert_user, [username, password], function(error, rows, fields) {
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Users
+            let show_users = `
+                SELECT Users.userID, Users.username, Users.password FROM Users
+                WHERE Users.username = '${username}';
+            `
+            db.pool.query(show_users, function(error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
+    })
+})
+
 // Delete ---------------------------------------------------------------------
 // Delete routes adapted from sample code here:
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#create-a-delete-route
