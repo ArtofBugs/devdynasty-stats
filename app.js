@@ -72,6 +72,10 @@ app.get('/game_rounds', function(req, res) {
             // save the usernames
             let usernames = rows
 
+            if (error) {
+                console.error(error)
+            }
+
             return res.status(200).render("game_rounds", {
                 title: "Game Rounds",
                 data: game_rounds,
@@ -104,10 +108,28 @@ app.get('/answers', function(req, res)
             INNER JOIN Questions ON Answers.questionID = Questions.questionID
             ORDER BY Answers.answerID;
         `
+        let get_questionTexts = `SELECT questionText FROM Questions ORDER BY questionID;`
+
         db.pool.query(browse_answers, function(error, rows, fields) {
-            res.status(200).render("answers", {
-                title: "Answers",
-                data: rows
+            if (error) {
+                console.error(error)
+            }
+
+            // save Answers
+            let answers = rows
+
+            db.pool.query(get_questionTexts, (error, rows, fields) => {
+                let questionTexts = rows
+
+                if (error) {
+                    console.error(error)
+                }
+
+                res.status(200).render("answers", {
+                    title: "Answers",
+                    data: answers,
+                    questionTexts: questionTexts
+                })
             })
         })
     })
