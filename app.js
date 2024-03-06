@@ -107,6 +107,25 @@ app.post('/insert-question', function(req, res){
     })
 })
 
+// Delete routes adapted from sample code here:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#create-a-delete-route
+app.delete('/delete-question/', function(req, res){
+    const data = req.body
+    const questionID = parseInt(data.id)
+    console.log(data)
+    const deleteQuery = `DELETE FROM Questions where questionID = ?`
+
+    db.pool.query(deleteQuery, [questionID], function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else {
+            res.sendStatus(204)
+        }
+    })
+})
+
 // Code adapted from:
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 app.get('/game_rounds', function(req, res) {

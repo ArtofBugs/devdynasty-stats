@@ -82,7 +82,7 @@ addRowToTable = (data) => {
     questionIDCell.innerText = newRow.questionID;
     questionTextCell.innerText = newRow.questionText;
     typeNameCell.innerText = newRow.typeName;
-    deleteCell.innerHTML = `<button onclick="deleteRound(${newRow.questionID})">Delete</button>`;
+    deleteCell.innerHTML = `<button onclick="deleteQuestion(${newRow.questionID})">Delete</button>`;
 
     // Add the cells to the row
     row.appendChild(questionIDCell);
