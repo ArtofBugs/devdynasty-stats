@@ -126,6 +126,49 @@ app.get('/question_types', function(req, res)
         })
     })
 
+// Code adapted from:
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+app.post('/insert-question-type', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let typeName = data.name
+
+    // Create the query and run it on the database
+    let insert_question_type = `INSERT INTO Question_Types (typeName) VALUES ( ? )`
+    db.pool.query(insert_question_type, [typeName], function(error, rows, fields){
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Question_Types
+            let show_question_types = `
+                SELECT Question_Types.typeID, Question_Types.typeName FROM Question_Types
+                WHERE Question_Types.typeName = '${typeName}'; 
+            `
+    
+            db.pool.query(show_question_types, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
+    })
+})
+
 app.get('/rounds_questions', function(req, res)
     {
         const browse_rounds_questions = `
@@ -277,7 +320,6 @@ app.put('/put-round', function(req, res) {
                 })
             }
   })})
-
 
 /*
     LISTENER

@@ -1,10 +1,10 @@
 <div class="box">
     <h2>Browse Question_Types</h2>
-    <table>
+    <table id="question-types-table">
         {{> browse_header}}
         <tbody>
             {{#each data}}
-            <tr>
+            <tr type-id={{this.typeID}}>
                 <td>{{#if this.typeID}}{{this.typeID}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.typeName}}{{this.typeName}}{{else}}NULL{{/if}}</td>
             </tr>
@@ -15,13 +15,13 @@
 
 <div class="box">
     <h2>Insert Question_Type</h2>
-    <form action="" method="get" class="form-example">
-        <div class="form-example">
-        <label for="name">Name: </label>
-        <input type="text" name="name" id="name" required />
-        </div>
-        <div class="form-example">
+    <form id="insert-question-type" class="form-example">
+        <div>
+            <label for="input-name">Name: </label>
+            <input type="text" name="input-name" id="input-name" required>
+        </div>     
         <input type="submit" value="Insert Question_Type" />
-        </div>
     </form>
+    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+    <script type="text/javascript" src="/js/insert_question_type.js"></script>    
 </div>
