@@ -134,6 +134,8 @@ app.post('/insert-question-type', function(req, res){
 
     let typeName = data.name
 
+    console.log(typeName)
+
     // Create the query and run it on the database
     let insert_question_type = `INSERT INTO Question_Types (typeName) VALUES ( ? )`
     db.pool.query(insert_question_type, [typeName], function(error, rows, fields){
