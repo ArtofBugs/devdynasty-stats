@@ -37,7 +37,7 @@ updateRoundForm.addEventListener("submit", function (e) {
     if (isNaN(roundScoreValue)) {
         roundScoreValue = null
     }
-    if (roundTimeValue == '') {
+    if (!inputRoundHours.value && !inputRoundMins.value && !inputRoundSec.value) {
         roundTimeValue = null
     }
 

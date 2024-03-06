@@ -21,6 +21,10 @@ insertGameRoundForm.addEventListener("submit", function (e) {
     let scoreValue = inputScore.value;
     let timeValue = inputHours.value + ":" + inputMins.value + ":" + inputSec.value;
 
+    if (!inputHours.value && !inputMins.value && !inputSec.value) {
+        timeValue = null
+    }
+
     // Put our data we want to send in a javascript object
     let data = {
         userID: userIDValue,
@@ -45,7 +49,9 @@ insertGameRoundForm.addEventListener("submit", function (e) {
             // Clear the input fields for another transaction
             inputUserID.value = '';
             inputScore.value = '';
-            inputTime.value = '';
+            inputHours.value = '';
+            inputMins.value = '';
+            inputSec.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
