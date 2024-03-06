@@ -228,6 +228,21 @@ app.delete('/delete-round/', function(req, res){
         }
     })})
 
+app.delete('/delete-user/', function(req, res){
+    const data = req.body
+    const userID = parseInt(data.id)
+    const deleteQuery = `DELETE FROM Users where userID = ?`
+
+    db.pool.query(deleteQuery, [userID], function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else {
+            res.sendStatus(204)
+        }
+    })})
+
 // Update --------------------------------------------------------------------
 // Update routes adapted from sample code here:
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#update-the-back-end-appjs
