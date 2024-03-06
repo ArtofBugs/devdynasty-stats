@@ -41,7 +41,6 @@ insertQuestionForm.addEventListener("submit", function (e) {
 
             // Clear the input fields for another transaction
             inputQuestionText.value = '';
-            inputTypeID.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
