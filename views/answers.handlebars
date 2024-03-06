@@ -1,10 +1,10 @@
 <div class="box">
     <h2>Browse Answers</h2>
-    <table>
+    <table id="answers-table">
         {{> browse_header}}
         <tbody>
             {{#each data}}
-            <tr>
+            <tr row-id={{this.answerID}}>
                 <td>{{#if this.answerID}}{{this.answerID}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.answerText includeZero=true}}{{this.answerText}}{{else}}NULL{{/if}}</td>
                 <td>{{#if this.questionText includeZero=true}}{{this.questionText}}{{else}}NULL{{/if}}</td>
@@ -20,7 +20,7 @@
     <form id="insert-answer-form-ajax" class="form-example">
         <div class="form-example">
             <label for="questionID">Question Text:</label>
-            <select name="questionID" id="questionID">
+            <select name="questionID" id="input-questionID">
                 {{#each questionTexts}}
                     <option value="{{this.questionID}}">{{this.questionText}}</option>
                 {{/each}}
@@ -29,18 +29,17 @@
         <div class="form-example">
             <label for="correctness">Correctness:</label>
 
-            <select name="correctness" id="correctness">
+            <select name="correctness" id="input-correctness">
                 <option value="0">0 (Not correct)</option>
                 <option value="1">1 (Correct)</option>
             </select>
         </div>
         <div class="textarea-input">
             <label for="text">Answer text: </label>
-            <textarea name="text" id="text" required></textarea>
+            <textarea name="text" id="input-answerText" required></textarea>
         </div>
         
-        <div class="form-example">
-            <input type="submit" value="Insert Question_Type" />
-        </div>
+        <input type="submit" value="Insert Answer" />
     </form>
+    <script src="/js/insert-answer.js" defer></script>
 </div>

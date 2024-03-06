@@ -2,29 +2,33 @@
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 
 // Get the objects we need to modify
-let insertUserForm = document.getElementById('insert-user-form-ajax');
+let insertAnswerForm = document.getElementById('insert-answer-form-ajax');
 
 // Modify the objects we need
-insertUserForm.addEventListener("submit", function (e) {
+insertAnswerForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
-    e.preventDefault()
+    e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputUsername = document.getElementById("user-name-input")
-    let inputPassword = document.getElementById("user-password-input")
+    let inputAnswerText = document.getElementById("input-answerText")
+    let inputQuestionID = document.getElementById("input-questionID")
+    let inputCorrectness = document.getElementById("input-correctness")
 
     // Get the values from the form fields
-    let usernameValue = inputUsername.value
-    let passwordValue = inputPassword.value
+    let answerTextValue = inputAnswerText.value
+    let questionIDValue = inputQuestionID.value
+    let correctnessValue = parseInt(inputCorrectness.value)
+
     // Put our data we want to send in a javascript object
     let data = {
-        username: usernameValue,
-        password: passwordValue,
+        answerText: answerTextValue,
+        questionID: questionIDValue,
+        correctness: correctnessValue,
     }
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/insert-user-form-ajax", true);
+    xhttp.open("POST", "/insert-answer-form-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -37,8 +41,7 @@ insertUserForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputUsername.value = '';
-            inputPassword.value = '';
+            inputAnswerText.value = ''
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -52,11 +55,11 @@ insertUserForm.addEventListener("submit", function (e) {
 
 
 // Creates a single row from an Object representing a single record from
-// Users
+// Answers
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("users-table");
+    let currentTable = document.getElementById("answers-table");
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
@@ -67,26 +70,26 @@ addRowToTable = (data) => {
     console.log(newRow)
 
     // Create a row and cells
-    let row = document.createElement("TR")
-    row.setAttribute('row-id', newRow.userID)
+    let row = document.createElement("TR");
+    row.setAttribute('row-id', newRow.answerID)
 
-    let userIDCell = document.createElement("TD")
-    let usernameCell = document.createElement("TD")
-    let passwordCell = document.createElement("TD")
-    let deleteCell = document.createElement("TD")
+    let answerIDCell = document.createElement("TD");
+    let answerTextCell = document.createElement("TD");
+    let questionTextCell = document.createElement("TD");
+    let correctnessCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    userIDCell.innerText = newRow.userID
-    usernameCell.innerText = newRow.username
-    passwordCell.innerText = newRow.password
-    deleteCell.innerHTML = `<button onclick="deleteUser(${newRow.userID})">Delete</button>`;
+    answerIDCell.innerText = newRow.answerID;
+    answerTextCell.innerText = newRow.answerText
+    questionTextCell.innerText = newRow.questionText
+    correctnessCell.innerText = newRow.correctness
 
     // Add the cells to the row
-    row.appendChild(userIDCell)
-    row.appendChild(usernameCell)
-    row.appendChild(passwordCell)
-    row.appendChild(deleteCell)
+    row.appendChild(answerIDCell);
+    row.appendChild(answerTextCell);
+    row.appendChild(questionTextCell);
+    row.appendChild(correctnessCell);
 
     // Add the row to the table
-    currentTable.appendChild(row)
+    currentTable.appendChild(row);
 }

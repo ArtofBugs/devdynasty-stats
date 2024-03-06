@@ -108,7 +108,7 @@ app.get('/answers', function(req, res)
             INNER JOIN Questions ON Answers.questionID = Questions.questionID
             ORDER BY Answers.answerID;
         `
-        let get_questionTexts = `SELECT questionText FROM Questions ORDER BY questionID;`
+        let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;`
 
         db.pool.query(browse_answers, function(error, rows, fields) {
             if (error) {
@@ -256,6 +256,55 @@ app.post('/insert-user-form-ajax', function(req, res){
                 WHERE Users.username = '${username}';
             `
             db.pool.query(show_users, function(error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
+    })
+})
+
+app.post('/insert-answer-form-ajax', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let answerText = data.answerText
+    let questionID = data.questionID
+    let correctness = data.correctness
+
+    // Create the query and run it on the database
+    let insert_answer = `
+        INSERT INTO Answers (answerText, questionID, correctness)
+        VALUES (?, ?, ?)
+    ;`
+
+    db.pool.query(insert_answer, [answerText, questionID, correctness], function(error, rows, fields) {
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Answers
+            let show_answers = `
+                SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness
+                FROM Answers
+                    INNER JOIN Questions
+                    ON Answers.questionID = Questions.questionID
+                WHERE Answers.answerText = '${answerText}';
+            `
+            db.pool.query(show_answers, function(error, rows, fields) {
 
                 // If there was an error on the second query, send a 400
                 if (error) {
