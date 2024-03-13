@@ -76,8 +76,9 @@ UPDATE Rounds_Questions
 ;
 
 -- delete a round_question based on selection of which round_question to update
-DELETE FROM Rounds_Questions
-    WHERE roundID = :roundID_to_update AND questionID = :questionID_to_update
+DELETE Rounds_Questions FROM Rounds_Questions
+    JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+    WHERE Rounds_Questions.roundID = :roundID_to_update AND Questions.questionText = :questionText_to_update
 ;
 
 -- Get all Users and their usernames + passwords for display on the Users page
