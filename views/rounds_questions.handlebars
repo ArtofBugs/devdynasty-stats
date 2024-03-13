@@ -42,50 +42,41 @@
 
 <div class="box">
     <h2>Update Round_Question</h2>
-    <form action="" method="get" class="form-example">
+    <form id="update-round-question" class="form-example">
         <div class="form-example">
             <label for="roundID-update">Round ID:</label>
-
             <select name="roundID-update" id="roundID-update">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+                {{#each roundIDs}}
+                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{/each}}
             </select>
         </div>
         <div class="form-example">
-            <label for="questionID">Question Text:</label>
-
-            <select name="questionID" id="questionID">
-            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
-            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
-            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+            <label for="input-questionID">Question Text:</label>
+            <select name="input-questionID" id="input-questionID">
+                {{#each questionTexts}}
+                    <option value="{{this.questionID}}">{{this.questionText}}</option>
+                {{/each}}
             </select>
         </div>
         <br>
         <div class="form-example">
-            <label for="roundID-update-change">Change Round ID:</label>
-
-            <select name="roundID-update-change" id="roundID-update-change">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <label for="roundID-update">Change Round ID:</label>
+            <select name="roundID-update" id="roundID-update">
+                {{#each roundIDs}}
+                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{/each}}
             </select>
         </div>
+
         <div class="form-example">
             <label for="questionID-update">Change Question Text:</label>
-
             <select name="questionID-update" id="questionID-update">
-            <option value="1">How have you dealt with a team member not pulling their weight in the past?</option>
-            <option value="2">Describe a time when you faced a tight deadline or a high-pressure situation. How did you handle the stress, and what was the outcome?</option>
-            <option value="3">Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?</option>
+                {{#each questionTexts}}
+                    <option value="{{this.questionID}}">{{this.questionText}}</option>
+                {{/each}}
             </select>
         </div>
-
-        <br>
         <div class="form-example">
         <input type="submit" value="Update Rounds_Questions" />
         </div>
