@@ -2,38 +2,36 @@
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 
 // Get the objects we need to modify
-let insertAnswerForm = document.getElementById('insert-answer-form-ajax');
+let insertRoundQuestionForm = document.getElementById('insert-round-question');
 
 // Modify the objects we need
-insertAnswerForm.addEventListener("submit", function (e) {
+insertRoundQuestionForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputAnswerText = document.getElementById("input-answerText")
-    let inputQuestionID = document.getElementById("input-questionID")
-    let inputCorrectness = document.getElementById("input-correctness")
+    let inputRoundID = document.getElementById("input-roundID");
+    let inputQuestionID = document.getElementById("input-questionID");
 
     // Get the values from the form fields
-    let answerTextValue = inputAnswerText.value
-    let questionIDValue = inputQuestionID.value
-    let correctnessValue = parseInt(inputCorrectness.value)
+    let roundIDValue = inputRoundID.value;
+    let questionIDValue = inputQuestionID.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        answerText: answerTextValue,
-        questionID: questionIDValue,
-        correctness: correctnessValue,
+        roundID: roundIDValue,
+        questionID: questionIDValue
     }
+    console.log(data)
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/insert-answer-form-ajax", true);
+    xhttp.open("POST", "/insert-round-question", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        // console.log(xhttp.responseText);
+        console.log(xhttp.responseText);
 
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
@@ -41,7 +39,6 @@ insertAnswerForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputAnswerText.value = ''
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -55,11 +52,11 @@ insertAnswerForm.addEventListener("submit", function (e) {
 
 
 // Creates a single row from an Object representing a single record from
-// Answers
+// Question_Types
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("answers-table");
+    let currentTable = document.getElementById("rounds-questions-table");
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
@@ -69,26 +66,20 @@ addRowToTable = (data) => {
 
     console.log(newRow)
 
-    // Create a row and cells
+    // Create a row and 2 cells
     let row = document.createElement("TR");
-    row.setAttribute('row-id', newRow.answerID)
+    row.setAttribute('round-id', newRow.roundID)
 
-    let answerIDCell = document.createElement("TD");
-    let answerTextCell = document.createElement("TD");
+    let roundIDCell = document.createElement("TD");
     let questionTextCell = document.createElement("TD");
-    let correctnessCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    answerIDCell.innerText = newRow.answerID;
-    answerTextCell.innerText = newRow.answerText;
+    roundIDCell.innerText = newRow.roundID;
     questionTextCell.innerText = newRow.questionText;
-    correctnessCell.innerText = newRow.correctness;
 
     // Add the cells to the row
-    row.appendChild(answerIDCell);
-    row.appendChild(answerTextCell);
+    row.appendChild(roundIDCell);
     row.appendChild(questionTextCell);
-    row.appendChild(correctnessCell);
 
     // Add the row to the table
     currentTable.appendChild(row);

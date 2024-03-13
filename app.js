@@ -275,16 +275,81 @@ app.get('/rounds_questions', function(req, res)
             FROM Game_Rounds
                 INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
                 INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
-            ORDER BY Game_Rounds.roundID, Questions.questionID
-            ;
+            ORDER BY Game_Rounds.roundID, Questions.questionID;
         `
+
+        let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;` 
+    
         db.pool.query(browse_rounds_questions, function(error, rows, fields){    // Execute the query
-            res.status(200).render("rounds_questions", {
-                title: "Rounds Questions",
-                data: rows
+            if(error) {
+                console.error(error)
+            }
+
+            // save Game_Rounds
+            let rounds = rows
+
+            db.pool.query(get_questionTexts, function(error, rows, fields) {
+                let questionTexts = rows
+
+                if(error) {
+                    console.error(error)
+                }
+
+                res.status(200).render("rounds_questions", {
+                    title: "Rounds Questions",
+                    data: rounds,
+                    questionTexts: questionTexts
+                })
             })
         })
     })
+
+app.post('/insert-round-question', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body
+
+    let roundID = data.roundID
+    let questionID = data.questionID
+    
+    let insert_round_question = `
+        INSERT INTO Rounds_Questions (roundID, questionID)
+        VALUES (?, ?)
+    ;`
+
+    db.pool.query(insert_round_question, [roundID, questionID], function(error, rows, fields) {
+        // Check to see if there was an error
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Answers
+            let show_rounds_questions = `
+            SELECT Rounds_Questions.roundID, Questions.questionText 
+            FROM Rounds_Questions 
+                INNER JOIN Questions 
+                ON Rounds_Questions.questionID = Questions.questionID
+            WHERE Rounds_Questions.roundID = ?;
+            `
+            db.pool.query(show_rounds_questions, function(error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows)
+                }
+            })
+        }
+    })
+})
 
 // Code adapted from:
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
