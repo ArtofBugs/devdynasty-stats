@@ -336,9 +336,9 @@ app.post('/insert-round-question', function(req, res){
         }
         else
         {
-            // If there was no error, perform a SELECT * on Answers
+            // If there was no error, perform a SELECT * on Rounds_Questions
             let show_rounds_questions = `
-            SELECT Rounds_Questions.roundID, Questions.questionText 
+            SELECT Rounds_Questions.roundID, Questions.questionText
             FROM Rounds_Questions 
                 INNER JOIN Questions 
                 ON Rounds_Questions.questionID = Questions.questionID
@@ -527,6 +527,26 @@ app.delete('/delete-round/', function(req, res){
     const deleteQuery = `DELETE FROM Game_Rounds where roundID = ?`
 
     db.pool.query(deleteQuery, [roundID], function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400)
+        }
+        else {
+            res.sendStatus(204)
+        }
+    })})
+
+app.delete('/delete-rounds-question/', function(req, res){
+    const data = req.body
+    const roundID = parseInt(data.roundID)
+    const questionText = data.questionText
+    const deleteQuery = `
+        DELETE Rounds_Questions FROM Rounds_Questions
+        JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+        WHERE Rounds_Questions.roundID = ? AND Questions.questionText = ?
+    ;`
+
+    db.pool.query(deleteQuery, [roundID, questionText], function(error, rows, fields) {
         if (error) {
             console.log(error)
             res.sendStatus(400)

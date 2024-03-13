@@ -58,10 +58,10 @@ insertRoundQuestionForm.addEventListener("submit", function (e) {
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("rounds-questions-table");
+    let currentTable = document.getElementById("rounds_questions-table")
 
     // Get a reference to the new row from the database query (last object)
-    let parsedData = JSON.parse(data);
+    let parsedData = JSON.parse(data)
     console.log(parsedData)
 
     let newRow = parsedData[parsedData.length - 1]
@@ -69,20 +69,24 @@ addRowToTable = (data) => {
     console.log(newRow)
 
     // Create a row and 2 cells
-    let row = document.createElement("TR");
-    row.setAttribute('round-id', newRow.roundID)
+    let row = document.createElement("TR")
+    row.setAttribute('row-round-id', newRow.roundID)
+    row.setAttribute('row-question-text', newRow.questionText)
 
-    let roundIDCell = document.createElement("TD");
-    let questionTextCell = document.createElement("TD");
+    let roundIDCell = document.createElement("TD")
+    let questionTextCell = document.createElement("TD")
+    let deleteCell = document.createElement("TD")
 
     // Fill the cells with correct data
     roundIDCell.innerText = newRow.roundID;
     questionTextCell.innerText = newRow.questionText;
+    deleteCell.innerHTML = `<button onclick="deleteRoundsQuestion(${newRow.roundID}, '${newRow.questionText}')">Delete</button>`
 
     // Add the cells to the row
-    row.appendChild(roundIDCell);
-    row.appendChild(questionTextCell);
+    row.appendChild(roundIDCell)
+    row.appendChild(questionTextCell)
+    row.appendChild(deleteCell)
 
     // Add the row to the table
-    currentTable.appendChild(row);
+    currentTable.appendChild(row)
 }
