@@ -42,6 +42,8 @@ insertRoundQuestionForm.addEventListener("submit", function (e) {
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
+            window.alert("You can't insert a duplicate Round_Question.")
+            return
         }
     }
 

@@ -19,7 +19,7 @@
         <div class="form-example">
             <label for="input-roundID">Round ID:</label>
             <select name="input-roundID" id="input-roundID">
-                {{#each data}}
+                {{#each roundIDs}}
                     <option value="{{this.roundID}}">{{this.roundID}}</option>
                 {{/each}}
             </select>
@@ -33,8 +33,8 @@
             </select>
         </div>
         <input type="submit" value="Insert Rounds_Questions" />
-        <script src="/js/insert-round-question.js" defer></script>
     </form>
+    <script src="/js/insert-round-question.js" defer></script>
 </div>
 
 <div class="box">

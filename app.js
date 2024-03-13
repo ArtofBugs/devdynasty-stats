@@ -275,8 +275,8 @@ app.get('/rounds_questions', function(req, res)
             FROM Game_Rounds
                 INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
                 INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
-            ORDER BY Game_Rounds.roundID, Questions.questionID;
-        `
+            ORDER BY Rounds_Questions.roundID, Questions.questionID
+        ;`
 
         let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;` 
     
@@ -287,19 +287,30 @@ app.get('/rounds_questions', function(req, res)
 
             // save Game_Rounds
             let rounds = rows
+            let get_roundIDs = `SELECT roundID FROM Game_Rounds ORDER BY roundID;` 
 
-            db.pool.query(get_questionTexts, function(error, rows, fields) {
+            db.pool.query(get_questionTexts, function(error, rows, fields){
                 let questionTexts = rows
 
                 if(error) {
                     console.error(error)
                 }
 
-                res.status(200).render("rounds_questions", {
-                    title: "Rounds Questions",
-                    data: rounds,
-                    questionTexts: questionTexts
+                db.pool.query(get_roundIDs, function(error, rows, fields){
+                    let roundIDs = rows
+
+                    if(error) {
+                        console.error(error)
+                    }
+
+                    res.status(200).render("rounds_questions", {
+                        title: "Rounds Questions",
+                        data: rounds,
+                        questionTexts: questionTexts,
+                        roundIDs: roundIDs
+                    })
                 })
+                
             })
         })
     })
@@ -331,7 +342,7 @@ app.post('/insert-round-question', function(req, res){
             FROM Rounds_Questions 
                 INNER JOIN Questions 
                 ON Rounds_Questions.questionID = Questions.questionID
-            WHERE Rounds_Questions.roundID = ?;
+            WHERE Rounds_Questions.roundID = ${roundID} AND Questions.questionID = ${questionID};
             `
             db.pool.query(show_rounds_questions, function(error, rows, fields) {
 
