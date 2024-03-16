@@ -1,3 +1,8 @@
+// Source: CS 340 node starter code - app.js
+// Scope: Whole file
+// Originality: Structure based on starter code
+// Date: 3/16/2024
+
 /*
     SETUP
 */
@@ -31,7 +36,8 @@ app.get('/', function(req, res) {
 app.use(express.static(__dirname + "/public"))
 
 
-// Pages  ---------------------------------------------------------------------
+// Questions  -------------------------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/questions', function(req, res) {
     const browse_query = `
         SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
@@ -62,8 +68,7 @@ app.get('/questions', function(req, res) {
     })
 })
 
-// Code adapted from:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Create functionality
 app.post('/insert-question', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
@@ -82,7 +87,6 @@ app.post('/insert-question', function(req, res){
         }
         else
         {
-            // If there was no error, perform a SELECT * on Question_Types
             let show_questions = `
                 SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
                 LEFT JOIN Question_Types ON Questions.typeID = Question_Types.typeID
@@ -107,8 +111,7 @@ app.post('/insert-question', function(req, res){
     })
 })
 
-// Delete routes adapted from sample code here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#create-a-delete-route
+// Delete functionality
 app.delete('/delete-question/', function(req, res){
     const data = req.body
     const questionID = parseInt(data.id)
@@ -126,8 +129,8 @@ app.delete('/delete-question/', function(req, res){
     })
 })
 
-// Code adapted from:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Game_Rounds ------------------------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/game_rounds', function(req, res) {
     const browse_query = `
         SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
@@ -162,6 +165,8 @@ app.get('/game_rounds', function(req, res) {
     })
 })
 
+// Users ------------------------------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/users', function(req, res) {
     const browse_query = `
         SELECT userID, username, password FROM Users
@@ -178,6 +183,8 @@ app.get('/users', function(req, res) {
     })
 })
 
+// Answers ----------------------------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/answers', function(req, res)
     {
         const browse_answers = `
@@ -211,6 +218,8 @@ app.get('/answers', function(req, res)
         })
     })
 
+// Question_Types ---------------------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/question_types', function(req, res)
     {
         const browse_question_types = `
@@ -225,8 +234,7 @@ app.get('/question_types', function(req, res)
         })
     })
 
-// Code adapted from:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Create functionality
 app.post('/insert-question-type', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
@@ -268,6 +276,8 @@ app.post('/insert-question-type', function(req, res){
     })
 })
 
+// Rounds_Questions -------------------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/rounds_questions', function(req, res)
     {
         const browse_rounds_questions = `
@@ -315,6 +325,7 @@ app.get('/rounds_questions', function(req, res)
         })
     })
 
+// Create functionality
 app.post('/insert-round-question', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
@@ -362,8 +373,7 @@ app.post('/insert-round-question', function(req, res){
     })
 })
 
-// Code adapted from:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Create functionality
 app.post('/insert-game-round-form-ajax', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
@@ -428,6 +438,7 @@ app.post('/insert-game-round-form-ajax', function(req, res){
     })
 })
 
+// Create functionality
 app.post('/insert-user-form-ajax', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
@@ -469,6 +480,7 @@ app.post('/insert-user-form-ajax', function(req, res){
     })
 })
 
+// Create functionality
 app.post('/insert-answer-form-ajax', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body
@@ -518,9 +530,7 @@ app.post('/insert-answer-form-ajax', function(req, res){
     })
 })
 
-// Delete ---------------------------------------------------------------------
-// Delete routes adapted from sample code here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#create-a-delete-route
+// Delete functionality
 app.delete('/delete-round/', function(req, res){
     const data = req.body
     const roundID = parseInt(data.id)
@@ -536,6 +546,7 @@ app.delete('/delete-round/', function(req, res){
         }
     })})
 
+// Delete functionality
 app.delete('/delete-rounds-question/', function(req, res){
     const data = req.body
     const roundID = parseInt(data.roundID)
@@ -556,6 +567,7 @@ app.delete('/delete-rounds-question/', function(req, res){
         }
     })})
 
+// Delete functionality
 app.delete('/delete-user/', function(req, res){
     const data = req.body
     const userID = parseInt(data.id)
@@ -571,9 +583,7 @@ app.delete('/delete-user/', function(req, res){
         }
     })})
 
-// Update --------------------------------------------------------------------
-// Update routes adapted from sample code here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#update-the-back-end-appjs
+// Update functionality
 app.put('/put-round', function(req, res) {
     const data = req.body
 
@@ -621,6 +631,7 @@ app.put('/put-round', function(req, res) {
             }
   })})
 
+// Update functionality
 app.put('/put-round-question', function(req, res) {
 const data = req.body
 console.log(data)
