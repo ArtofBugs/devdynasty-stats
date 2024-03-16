@@ -28,4 +28,11 @@ function deleteRow(questionID) {
             break;
         }
     }
+    if (table.rows.length < 2) {
+        noDataMsg = document.createElement("thead");
+        noDataMsg.innerHTML = `<tr><th>No data to display</th></tr>`
+        table.removeChild(document.getElementsByTagName("thead")[0])
+        table.removeChild(document.getElementsByTagName("tbody")[0])
+        table.appendChild(noDataMsg)
+    }
 }
