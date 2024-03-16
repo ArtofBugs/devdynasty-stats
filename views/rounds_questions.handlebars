@@ -20,16 +20,16 @@
     <h2>Insert Round_Question</h2>
     <form id="insert-round-question" class="form-example">
         <div class="form-example">
-            <label for="input-roundID">Round ID:</label>
-            <select name="input-roundID" id="input-roundID">
+            <label for="insert-roundID">Round ID:</label>
+            <select name="insert-roundID" id="insert-roundID">
                 {{#each roundIDs}}
                     <option value="{{this.roundID}}">{{this.roundID}}</option>
                 {{/each}}
             </select>
         </div>
         <div class="form-example">
-            <label for="input-questionID">Question Text:</label>
-            <select name="input-questionID" id="input-questionID">
+            <label for="insert-questionID">Question Text:</label>
+            <select name="insert-questionID" id="insert-questionID">
                 {{#each questionTexts}}
                     <option value="{{this.questionID}}">{{this.questionText}}</option>
                 {{/each}}
@@ -81,4 +81,5 @@
         <input type="submit" value="Update Rounds_Questions" />
         </div>
     </form>
+    <script src="/js/update-round-question.js" defer></script>
 </div>

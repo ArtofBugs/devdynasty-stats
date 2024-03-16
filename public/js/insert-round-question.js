@@ -10,8 +10,8 @@ insertRoundQuestionForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputRoundID = document.getElementById("input-roundID");
-    let inputQuestionID = document.getElementById("input-questionID");
+    let inputRoundID = document.getElementById("insert-roundID");
+    let inputQuestionID = document.getElementById("insert-questionID");
 
     // Get the values from the form fields
     let roundIDValue = inputRoundID.value;
