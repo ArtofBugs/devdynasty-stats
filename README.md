@@ -15,4 +15,9 @@ PORT=12345
 
 ## Running the Site (Forever)
 1. Get on the server you want to run on and do steps 1-4 for dev
-2. To start the site up and leave it running forever, run `npm start`.
+2. To start the site up and leave it running forever, run `npm start`
+
+## Citations
+`app.js` and all files in `public/js` are adapted from the CS 340 Node starter
+code at https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+unless otherwise noted. See code comments in each file for specific information.
