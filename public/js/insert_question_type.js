@@ -1,5 +1,7 @@
-// All code here unless otherwise noted adapted from sample code found here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
+// Scope: Whole file
+// Originality: Adapted from starter code, with our own names and entities
+// Date: 3/16/2024
 
 // Get the objects we need to modify
 let insertQuestionTypeForm = document.getElementById('insert-question-type');
