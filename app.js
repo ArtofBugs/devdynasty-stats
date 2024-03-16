@@ -621,6 +621,52 @@ app.put('/put-round', function(req, res) {
             }
   })})
 
+app.put('/put-round-question', function(req, res) {
+const data = req.body
+console.log(data)
+
+const inputRoundID = parseInt(data.inputRoundID)
+const inputQuestionID = parseInt(data.inputQuestionID)
+const newRoundID = parseInt(data.newRoundID)
+const newQuestionID = parseInt(data.newQuestionID)
+
+const updateQuery = `
+    UPDATE Rounds_Questions
+    SET roundID = ?, questionID = ?
+    WHERE roundID = ? AND questionID = ?
+;`
+const selectQuery = `
+    SELECT Rounds_Questions.roundID, Questions.questionText
+    FROM Rounds_Questions
+    JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+    WHERE Rounds_Questions.roundID = ? AND Rounds_Questions.questionID = ?
+;`
+
+// Run the 1st query
+db.pool.query(updateQuery, [newRoundID, newQuestionID, inputRoundID, inputQuestionID], function(error, rows, fields) {
+    if (error) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error)
+        res.sendStatus(400)
+    }
+    // If there was no error, we run our second query and return that data so we can use it to update the
+    // table on the front-end
+    else {
+        // Run the second query
+            db.pool.query(selectQuery, [newRoundID, newQuestionID], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                else {
+                    console.log(rows)
+                    res.send(rows)
+                }
+            })
+        }
+})})
+
 /*
     LISTENER
 */

@@ -63,10 +63,11 @@ INSERT INTO Rounds_Questions (roundID, questionID)
     )
 ;
 
--- select a round_question to update / delete on the Rounds_Questions page
-SELECT roundID, questionID
+-- select the round_question that was just updated on the Rounds_Questions page
+SELECT Rounds_Questions.roundID, Questions.questionText
     FROM Rounds_Questions
-    WHERE roundID = :roundID_to_update AND questionID = :questionID_to_update
+    JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+    WHERE Rounds_Questions.roundID = :roundID_updated AND Rounds_Questions.questionID = :questionID_updated
 ;
 
 -- update a round_question based on selection of which round_question to update
