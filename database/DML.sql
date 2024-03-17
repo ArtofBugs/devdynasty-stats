@@ -248,13 +248,11 @@ SELECT Game_Rounds.roundID, Questions.questionText
     ORDER BY Rounds_Questions.roundID, Questions.questionID
 ;
 
--- Get all Rounds_Questions and their clarifying information to display in the round ID dropdown
-SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText 
+-- Get all Game_Rounds and their clarifying information to display in the round ID dropdown
+SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time
     FROM Game_Rounds
-        INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
-        INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
-        INNER JOIN Users ON Users.userID = Game_Rounds.userID
-    ORDER BY Rounds_Questions.roundID, Questions.questionID
+        LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+    ORDER BY Game_Rounds.roundID
 ;
 
 -- Get all Questions and their text to display in the question text dropdown
