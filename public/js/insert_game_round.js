@@ -1,5 +1,7 @@
-// All code here unless otherwise noted adapted from sample code found here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
+// Scope: Whole file unless otherwise noted
+// Originality: Adapted from starter code, with our own names and entities
+// Date: 3/16/2024
 
 // Get the objects we need to modify
 let insertGameRoundForm = document.getElementById('insert-game-round-form-ajax');
@@ -64,8 +66,7 @@ insertGameRoundForm.addEventListener("submit", function (e) {
 })
 
 
-// Creates a single row from an Object representing a single record from
-// Game_Rounds
+// Creates a single row from an Object representing a single record from Game_Rounds
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
@@ -90,10 +91,13 @@ addRowToTable = (data) => {
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
+    // We added checks for null values so that null cells display the word "NULL"
+    // instead of being empty
     roundIDCell.innerText = newRow.roundID;
     usernameCell.innerText = newRow.username === null ? "NULL" : newRow.username;
     scoreCell.innerText = newRow.score === null ? "NULL" : newRow.score
     timeCell.innerText = newRow.time === null ? "NULL" : newRow.time
+    // We added our own additional cell with a delete button.
     deleteCell.innerHTML = `<button onclick="deleteRound(${newRow.roundID})">Delete</button>`;
 
     // Add the cells to the row
@@ -106,16 +110,17 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
-    // Code adapted from here:
-    // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
-    // Start of new Step 8 code for adding new data to the dropdown menu for updating people
+    // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file,
+    // second code block, starting from the comment "Start of new Step 8 code for adding new data to the dropdown menu for updating people"
+    // Scope: Just the lines below
+    // Originality: Adapted from starter code, with our own names and entities
+    // Date: 3/16/2024
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    // Find dropdown menu, create a new option, fill data in the option,
+    // then append option to dropdown menu so newly created rows via ajax will be found in it without needing a refresh
     let selectMenu = document.getElementById("round-id-update-select");
     let option = document.createElement("option");
     option.text = newRow.roundID;
     option.value = newRow.roundID;
     selectMenu.add(option);
-    // End of new step 8 code.
 }

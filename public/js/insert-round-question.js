@@ -1,5 +1,7 @@
-// All code here unless otherwise noted adapted from sample code found here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
+// Scope: Whole file unless otherwise noted
+// Originality: Adapted from starter code, with our own names and entities
+// Date: 3/16/2024
 
 // Get the objects we need to modify
 let insertRoundQuestionForm = document.getElementById('insert-round-question');
@@ -42,6 +44,7 @@ insertRoundQuestionForm.addEventListener("submit", function (e) {
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
+            // We added an alert for failures to update into duplicate Round_Questions
             window.alert("You can't insert a duplicate Round_Question.")
             return
         }
@@ -53,8 +56,7 @@ insertRoundQuestionForm.addEventListener("submit", function (e) {
 })
 
 
-// Creates a single row from an Object representing a single record from
-// Question_Types
+// Creates a single row from an Object representing a single record from Rounds_Questions
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
@@ -68,7 +70,7 @@ addRowToTable = (data) => {
 
     console.log(newRow)
 
-    // Create a row and 2 cells
+    // Create a row and cells
     let row = document.createElement("TR")
     row.setAttribute('row-round-id', newRow.roundID)
     row.setAttribute('row-question-text', newRow.questionText)
@@ -80,6 +82,7 @@ addRowToTable = (data) => {
     // Fill the cells with correct data
     roundIDCell.innerText = newRow.roundID;
     questionTextCell.innerText = newRow.questionText;
+    // We added our own additional cell with a delete button.
     deleteCell.innerHTML = `<button onclick="deleteRoundsQuestion(${newRow.roundID}, '${newRow.questionText}')">Delete</button>`
 
     // Add the cells to the row

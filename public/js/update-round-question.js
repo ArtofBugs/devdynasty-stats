@@ -1,5 +1,7 @@
-// All code in this file adapted from starter code here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
+// Scope: Whole file unless otherwise noted
+// Originality: Adapted from starter code, with our own names and entities
+// Date: 3/16/2024
 
 // Get the objects we need to modify
 const updateRoundForm = document.getElementById('update-round-question')
@@ -17,10 +19,17 @@ updateRoundForm.addEventListener("submit", function (e) {
     const newQuestionText = document.getElementById("questionID-update")
 
     // Get the values from the form fields
+    // We added parseInt() calls for the IDs so that the request data would already be in number form
     const inputRoundIDValue = parseInt(inputRoundID.value)
     const inputQuestionIDValue = parseInt(inputQuestionText.value)
-    // Get text of currently selected question from dropdown - https://stackoverflow.com/a/5947
+
+    // Get text of currently selected question from dropdown
+    // Source: https://stackoverflow.com/a/5947
+    // Scope: Single line
+    // Originality: Adapted, with our own dropdown menu and variable names
+    // Date: 3/16/2024
     const inputQuestionTextValue = inputQuestionText.options[inputQuestionText.selectedIndex].text
+
     const newRoundIDValue = parseInt(newRoundID.value)
     const newQuestionIDValue = parseInt(newQuestionText.value)
 
@@ -65,6 +74,7 @@ updateRoundForm.addEventListener("submit", function (e) {
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
+            // We added an alert for failures to insert duplicate Round_Questions
             window.alert("That Round_Question already exists!")
             return
         }

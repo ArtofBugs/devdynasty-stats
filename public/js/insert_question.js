@@ -1,5 +1,7 @@
-// All code here unless otherwise noted adapted from sample code found here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
+// Scope: Whole file unless otherwise noted
+// Originality: Adapted from starter code, with our own names and entities
+// Date: 3/16/2024
 
 // Get the objects we need to modify
 let insertQuestionForm = document.getElementById('insert-question');
@@ -44,6 +46,7 @@ insertQuestionForm.addEventListener("submit", function (e) {
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
+            // We added an alert for failures to insert duplicate Questions
             window.alert("You can't insert a duplicate Question.")
             return
         }
@@ -55,8 +58,7 @@ insertQuestionForm.addEventListener("submit", function (e) {
 })
 
 
-// Creates a single row from an Object representing a single record from
-// Game_Rounds
+// Creates a single row from an Object representing a single record from Questions
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
@@ -70,7 +72,7 @@ addRowToTable = (data) => {
 
     console.log(newRow)
 
-    // Create a row and 4 cells
+    // Create a row and cells
     let row = document.createElement("TR");
     row.setAttribute('row-id', newRow.questionID)
 
@@ -83,6 +85,7 @@ addRowToTable = (data) => {
     questionIDCell.innerText = newRow.questionID;
     questionTextCell.innerText = newRow.questionText;
     typeNameCell.innerText = newRow.typeName;
+    // We added our own additional cell with a delete button.
     deleteCell.innerHTML = `<button onclick="deleteQuestion(${newRow.questionID})">Delete</button>`;
 
     // Add the cells to the row
