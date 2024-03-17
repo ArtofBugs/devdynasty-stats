@@ -44,6 +44,7 @@ Originality: Adapted from starter code, with our own names and entities
 
 Date: 3/16/2024
 
+--
 
 Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file,
 second code block, starting from the comment "Start of new Step 8 code for adding new data to the dropdown menu for updating people"
@@ -64,6 +65,7 @@ Originality: Adapted from starter code, with our own names and entities
 
 Date: 3/16/2024
 
+--
 
 Source: https://stackoverflow.com/a/5947
 
@@ -83,6 +85,7 @@ Originality: Adapted from starter code, with our own names and entities
 
 Date: 3/16/2024
 
+--
 
 Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#part-a-using-jquery-to-send-a-delete-request
 
@@ -92,6 +95,7 @@ Originality: Adapted from starter code, with our own names and entities
 
 Date: 3/16/2024
 
+--
 
 Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#see-below-for-code-to-dynamically-remove-people-from-the-drop-down-menu
 
