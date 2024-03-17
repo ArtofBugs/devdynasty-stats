@@ -63,10 +63,10 @@ app.post('/insert-user-form-ajax', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on Users
+            // If there was no error, get the newly added User
             let show_users = `
-                SELECT Users.userID, Users.username, Users.password FROM Users
-                WHERE Users.username = '${username}';
+                SELECT userID, username, password FROM Users
+                WHERE username = '${username}';
             `
             db.pool.query(show_users, function(error, rows, fields) {
 
@@ -140,6 +140,7 @@ app.post('/insert-question', function(req, res)
         }
         else
         {
+            // If there was no error, get the newly added Question
             let show_questions = `
                 SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
                 LEFT JOIN Question_Types ON Questions.typeID = Question_Types.typeID
@@ -240,7 +241,7 @@ app.post('/insert-answer-form-ajax', function(req, res){
         }
         else
         {
-            // If there was no error, perform a SELECT * on Answers
+            // If there was no error, get the newly added Answer
             let show_answers = `
                 SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness
                 FROM Answers
@@ -319,10 +320,10 @@ app.post('/insert-question-type', function(req, res){
         }
         else
         {
-            // If there was no error, perform a SELECT * on Question_Types
+            // If there was no error, get the newly added Question_Type
             let show_question_types = `
-                SELECT Question_Types.typeID, Question_Types.typeName FROM Question_Types
-                WHERE Question_Types.typeName = '${typeName}';
+                SELECT typeID, typeName FROM Question_Types
+                WHERE typeName = '${typeName}';
             `
 
             db.pool.query(show_question_types, function(error, rows, fields){
@@ -393,12 +394,13 @@ app.post('/insert-game-round-form-ajax', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on Game_Rounds
+            // If there was no error, get the newly added Game_Round
             let show_game_rounds = `
                 SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
                 LEFT JOIN Users ON Game_Rounds.userID = Users.userID
                 WHERE Game_Rounds.userID = ${userID};
             `
+            // We added this check for when userID is null, since = does not work with null
             if (userID === null) {
                 show_game_rounds = `
                     SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
@@ -489,7 +491,7 @@ app.put('/put-round', function(req, res) {
         console.log(error)
         res.sendStatus(400)
         }
-        // If there was no error, we run our second query and return that data so we can use it to update the
+        // If there was no error, we run our second query to and return the newly updated data so we can use it to update the
         // table on the front-end
         else {
             // Run the second query
@@ -548,7 +550,7 @@ app.post('/insert-round-question', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on Rounds_Questions
+            // If there was no error, get the newly added Rounds_Question
             let show_rounds_questions = `
             SELECT Rounds_Questions.roundID, Questions.questionText
             FROM Rounds_Questions
@@ -653,22 +655,22 @@ app.put('/put-round-question', function(req, res) {
             console.log(error)
             res.sendStatus(400)
         }
-        // If there was no error, we run our second query and return that data so we can use it to update the
+        // If there was no error, we run our second query to and return the newly updated data so we can use it to update the
         // table on the front-end
         else {
             // Run the second query
-                db.pool.query(selectQuery, [newRoundID, newQuestionID], function(error, rows, fields) {
+            db.pool.query(selectQuery, [newRoundID, newQuestionID], function(error, rows, fields) {
 
-                    if (error) {
-                        console.log(error)
-                        res.sendStatus(400)
-                    }
-                    else {
-                        console.log(rows)
-                        res.send(rows)
-                    }
-                })
-            }
+                if (error) {
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                else {
+                    console.log(rows)
+                    res.send(rows)
+                }
+            })
+        }
     })
 })
 

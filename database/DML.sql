@@ -195,10 +195,10 @@ SELECT userID, username
 -- Update a Game_Round with the given round ID, user ID, score, and time
 UPDATE Game_Rounds 
     SET 
-        Users.userID = :selectedUserID,
-        Game_Rounds.score = :selectedScore,
-        Game_Rounds.time = :selectedTime
-    WHERE Game_Rounds.roundID = :selectedRoundID
+        userID = :selectedUserID,
+        score = :selectedScore,
+        time = :selectedTime
+    WHERE roundID = :selectedRoundID
 ;
 
 -- Get the newly updated Game_Round 
@@ -276,7 +276,7 @@ SELECT Rounds_Questions.roundID, Questions.questionText
     FROM Rounds_Questions
         JOIN Questions 
         ON Rounds_Questions.questionID = Questions.questionID
-    WHERE Rounds_Questions.roundID = :roundID_to_update AND Rounds_Questions.questionID = :questionID_to_update
+    WHERE Rounds_Questions.roundID = :updated_roundID AND Rounds_Questions.questionID = :updated_questionID
 ;
 
 -- Delete functionality --
