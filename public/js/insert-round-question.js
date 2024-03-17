@@ -92,4 +92,46 @@ addRowToTable = (data) => {
 
     // Add the row to the table
     currentTable.appendChild(row)
+
+    // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file,
+    // second code block, starting from the comment "Start of new Step 8 code for adding new data to the dropdown menu for updating people"
+    // Scope: Just the lines below
+    // Originality: We added the for loop and conditionals to check that the option doesn't already exist in the dropdown;
+    // the content on the inside of the conditionals is adapted from starter code with our own names and entities and for two dropdowns
+    // Date: 3/16/2024
+
+    // Find dropdown menu, create a new option, fill data in the option,
+    // then append option to dropdown menu so newly created rows via ajax will be found in it without needing a refresh
+    let selectRoundMenu = document.getElementById("input-roundID");
+
+    let roundAlreadyExists = false;
+    for (let i = 0; i < selectRoundMenu.options.length; i++) {
+        if (selectRoundMenu.options[i].value === newRow.roundID) {
+            roundAlreadyExists = true;
+            break;
+        }
+    }
+    if (roundAlreadyExists === false) {
+        let roundOption = document.createElement("option");
+        roundOption.text = newRow.roundID + " | " + newRow.username + " | " + newRow.score + " | " + newRow.time;
+        roundOption.value = newRow.roundID;
+        selectRoundMenu.add(roundOption);
+    }
+
+    // Find dropdown menu, create a new option, fill data in the option,
+    // then append option to dropdown menu so newly created rows via ajax will be found in it without needing a refresh
+    let selectQuestionMenu = document.getElementById("input-questionID");
+    let questionAlreadyExists = false;
+    for (let i = 0; i < selectQuestionMenu.options.length; i++) {
+        if (selectQuestionMenu.options[i].value === newRow.questionID) {
+            questionAlreadyExists = true;
+            break;
+        }
+    }
+    if (questionAlreadyExists === false) {
+        let questionOption = document.createElement("option");
+        questionOption.text = newRow.questionText;
+        questionOption.value = newRow.questionID;
+        selectQuestionMenu.add(questionOption);
+    }
 }

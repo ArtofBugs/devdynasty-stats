@@ -88,7 +88,12 @@ updateRoundForm.addEventListener("submit", function (e) {
 
 function updateRow(data, inputRoundID, inputQuestionText){
     const parsedData = JSON.parse(data);
-
+    // We added an alert for when a user picks a pair of roundID and questionText where they individually exist
+    // in Rounds_Questions but there is no row that has both of them
+    if (parsedData.length === 0) {
+        window.alert("That Rounds_Question doesn't exist!")
+        return
+    }
     const table = document.getElementById("rounds_questions-table")
 
     for (let i = 0, row; row = table.rows[i]; i++) {
@@ -114,5 +119,59 @@ function updateRow(data, inputRoundID, inputQuestionText){
             td.innerHTML = parsedData[0]['questionText']
             td.setAttribute("row-question-text", parsedData[0]['questionText'])
        }
+    }
+
+    // All lines below until the end of the function are original
+
+    // Find rounds dropdown menu, create a new option, fill data in the option,
+    // then append option to dropdown menu
+    let selectRoundMenu = document.getElementById("input-roundID");
+
+    // Remove the option for the old roundID
+    for (let i = 0; i < selectRoundMenu.length; i++) {
+        if (selectRoundMenu.options[i].value == inputRoundID) {
+            selectRoundMenu.remove(i)
+        }
+    }
+    // Check if an option already exists for the new roundID
+    let roundAlreadyExists = false;
+    for (let i = 0; i < selectRoundMenu.length; i++) {
+        if (selectRoundMenu.options[i].value === parsedData[0]['roundID']) {
+            roundAlreadyExists = true;
+            break;
+        }
+    }
+    // Add an option for the roundID if it's new
+    if (roundAlreadyExists === false) {
+        let roundOption = document.createElement("option");
+        roundOption.text = parsedData[0]['roundID'] + " | " + parsedData[0]['username'] + " | " + parsedData[0]['score'] + " | " + parsedData[0]['time'];
+        roundOption.value = parsedData[0]['roundID'];
+        selectRoundMenu.add(roundOption);
+    }
+
+    // Find questionText dropdown menu, create a new option, fill data in the option,
+    // then append option to dropdown menu
+    let selectQuestionMenu = document.getElementById("input-questionID");
+    let questionAlreadyExists = false;
+
+    // Remove the option for the old questionID
+    for (let i = 0; i < selectQuestionMenu.length; i++) {
+        if (selectQuestionMenu.options[i].innerHTML === inputQuestionText) {
+            selectQuestionMenu[i].remove()
+        }
+    }
+    // Check if an option already exists for the new questionText
+    for (let i = 0; i < selectQuestionMenu.length; i++) {
+        if (selectQuestionMenu.options[i].value === parsedData[0]['questionID']) {
+            questionAlreadyExists = true;
+            break;
+        }
+    }
+    // Add an option for the questionText if it's new
+    if (questionAlreadyExists === false) {
+        let questionOption = document.createElement("option");
+        questionOption.text = parsedData[0]['questionText'];
+        questionOption.value = parsedData[0]['questionID'];
+        selectQuestionMenu.add(questionOption);
     }
 }

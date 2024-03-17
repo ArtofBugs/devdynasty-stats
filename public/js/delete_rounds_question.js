@@ -22,6 +22,35 @@ function deleteRoundsQuestion(roundID, questionText) {
     })
 }
 
+// After a row is deleted, this function removes the corresponding entry from
+// the Rounds and questionText dropdowns in the update form.
+// (Without this, a user would need to reload the page to see the changes.)
+
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#see-below-for-code-to-dynamically-remove-people-from-the-drop-down-menu
+// Scope: Function
+// Originality: Adapted from starter code, with our own names and entities and a second for loop for the second dropdown
+// Date: 3/16/2024
+function deleteDropdownItem(roundID, questionText) {
+    const roundDropdown = document.getElementById("input-roundID");
+    for (let i = 0; i < roundDropdown.length; i++) {
+        if (Number(roundDropdown.options[i].value) === Number(roundID)) {
+            roundDropdown[i].remove();
+            break;
+        }
+
+    }
+    const questionTextDropdown = document.getElementById("input-questionID");
+    for (let i = 0; i < questionTextDropdown.length; i++) {
+        console.log(questionTextDropdown.options[i].innerHTML)
+        console.log(questionText)
+        if (questionTextDropdown.options[i].innerHTML === questionText) {
+            questionTextDropdown[i].remove();
+            break;
+        }
+
+    }
+}
+
 // After a row is deleted, this function removes the corresponding entry from the Browse UI.
 // (Without this, a user would need to reload the page to see the changes.)
 function deleteRow(roundID, questionText) {
@@ -36,6 +65,7 @@ function deleteRow(roundID, questionText) {
             && table.rows[i].getAttribute("row-question-text") == questionText
         ) {
             table.deleteRow(i);
+            deleteDropdownItem(roundID, questionText);
             break;
         }
     }

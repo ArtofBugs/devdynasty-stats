@@ -29,7 +29,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%2
 
 Scope: Whole file
 
-Originality: Structure of routes based on starter code; SQL queries are our own.
+Originality: Structure of routes and commenting style based on starter code; SQL queries are our own.
 
 Date: 3/16/2024
 

@@ -1,7 +1,7 @@
 // Source: CS 340 node starter code - app.js
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/app.js
 // Scope: Whole file
-// Originality: Structure of routes based on starter code;
+// Originality: Structure of routes and commenting style based on starter code;
 // SQL queries are our own.
 // Date: 3/16/2024
 
@@ -552,10 +552,11 @@ app.post('/insert-round-question', function(req, res) {
         {
             // If there was no error, get the newly added Rounds_Question
             let show_rounds_questions = `
-            SELECT Rounds_Questions.roundID, Questions.questionText
+            SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText, Rounds_Questions.questionID
             FROM Rounds_Questions
-                INNER JOIN Questions
-                ON Rounds_Questions.questionID = Questions.questionID
+                INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+                LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+                INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
             WHERE Rounds_Questions.roundID = ${roundID} AND Questions.questionID = ${questionID};
             `
             db.pool.query(show_rounds_questions, function(error, rows, fields) {
@@ -595,6 +596,20 @@ app.get('/rounds_questions', function(req, res) {
 
     let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;`
 
+    const get_roundID_update_dropdown = `
+        SELECT DISTINCT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time
+        FROM Game_Rounds
+            INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
+            LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        ORDER BY Game_Rounds.roundID
+    ;`
+    const get_questionTexts_update_dropdown = `
+        SELECT DISTINCT Questions.questionText, Questions.questionID
+        FROM Questions
+            INNER JOIN Rounds_Questions ON Questions.questionID = Rounds_Questions.questionID
+        ORDER BY Questions.questionID
+    ;`
+
     db.pool.query(browse_rounds_questions, function(error, rows, fields) {    // Execute the query
         if(error) {
             console.error(error)
@@ -604,6 +619,7 @@ app.get('/rounds_questions', function(req, res) {
         let rounds_questions = rows
 
         db.pool.query(get_questionTexts, function(error, rows, fields) {
+            // save questionTexts
             let questionTexts = rows
 
             if(error) {
@@ -611,13 +627,38 @@ app.get('/rounds_questions', function(req, res) {
             }
 
             db.pool.query(get_roundID_insert_dropdown, function(error, rows, fields) {
+                // save rounds info
                 let roundDropdown = rows
-            
-                res.status(200).render("rounds_questions", {
-                    title: "Rounds Questions",
-                    data: rounds_questions,
-                    questionTexts: questionTexts,
-                    roundDropdown: roundDropdown
+
+                if (error) {
+                    console.error(error)
+                }
+
+                db.pool.query(get_roundID_update_dropdown, function(error, rows, fields) {
+                    // save updatable rounds info
+                    let roundUpdateDropdown = rows
+
+                    if (error) {
+                        console.error(error)
+                    }
+
+                    db.pool.query(get_questionTexts_update_dropdown, function(error, rows, fields) {
+                        // save updatable questionTexts info
+                        let questionTextsUpdateDropdown = rows
+
+                        if (error) {
+                            console.error(error)
+                        }
+
+                        res.status(200).render("rounds_questions", {
+                            title: "Rounds Questions",
+                            data: rounds_questions,
+                            questionTexts: questionTexts,
+                            roundDropdown: roundDropdown,
+                            questionTextsUpdateDropdown: questionTextsUpdateDropdown,
+                            roundUpdateDropdown: roundUpdateDropdown
+                        })
+                    })
                 })
             })
         })
@@ -640,9 +681,11 @@ app.put('/put-round-question', function(req, res) {
         WHERE roundID = ? AND questionID = ?
     ;`
     const selectQuery = `
-        SELECT Rounds_Questions.roundID, Questions.questionText
+        SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText
         FROM Rounds_Questions
-        JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+            INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+            LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+            INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
         WHERE Rounds_Questions.roundID = ? AND Rounds_Questions.questionID = ?
     ;`
 
