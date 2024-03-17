@@ -113,11 +113,11 @@ addRowToTable = (data) => {
     // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file,
     // second code block, starting from the comment "Start of new Step 8 code for adding new data to the dropdown menu for updating people"
     // Scope: Just the lines below
-    // Adapted from starter code, with our own names and entities
+    // Originality: Adapted from starter code, with our own names and entities
     // Date: 3/16/2024
 
-    // Find drop down menu, create a new option, fill data in the option,
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    // Find dropdown menu, create a new option, fill data in the option,
+    // then append option to dropdown menu so newly created rows via ajax will be found in it without needing a refresh
     let selectMenu = document.getElementById("round-id-update-select");
     let option = document.createElement("option");
     option.text = newRow.roundID;

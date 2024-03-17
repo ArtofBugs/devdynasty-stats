@@ -22,8 +22,14 @@ updateRoundForm.addEventListener("submit", function (e) {
     // We added parseInt() calls for the IDs so that the request data would already be in number form
     const inputRoundIDValue = parseInt(inputRoundID.value)
     const inputQuestionIDValue = parseInt(inputQuestionText.value)
-    // Get text of currently selected question from dropdown - https://stackoverflow.com/a/5947
+
+    // Get text of currently selected question from dropdown
+    // Source: https://stackoverflow.com/a/5947
+    // Scope: Single line
+    // Originality: Adapted, with our own dropdown menu and variable names
+    // Date: 3/16/2024
     const inputQuestionTextValue = inputQuestionText.options[inputQuestionText.selectedIndex].text
+
     const newRoundIDValue = parseInt(newRoundID.value)
     const newQuestionIDValue = parseInt(newQuestionText.value)
 
