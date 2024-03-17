@@ -1,5 +1,5 @@
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
-// Scope: Whole file
+// Scope: Whole file unless otherwise noted
 // Originality: Adapted from starter code, with our own names and entities
 // Date: 3/16/2024
 
@@ -41,6 +41,7 @@ insertQuestionTypeForm.addEventListener("submit", function (e) {
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
+            // We added an alert for failures to insert duplicate Question_Types
             window.alert("You can't insert a duplicate Question_Type.")
             return
         }

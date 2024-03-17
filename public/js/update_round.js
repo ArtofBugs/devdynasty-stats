@@ -1,5 +1,7 @@
-// All code in this file adapted from starter code here:
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
+// Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
+// Scope: Whole file
+// Originality: Adapted from starter code, with our own names and entities
+// Date: 3/16/2024
 
 // Get the objects we need to modify
 const updateRoundForm = document.getElementById('update-round-form')

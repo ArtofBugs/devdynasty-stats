@@ -1,4 +1,5 @@
 // Source: CS 340 node starter code - app.js
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/app.js
 // Scope: Whole file
 // Originality: Structure of each route based on starter code
 // Date: 3/16/2024
