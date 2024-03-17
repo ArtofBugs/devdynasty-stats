@@ -23,7 +23,6 @@
             <label for="insert-roundID">Round ID:</label>
             <select name="insert-roundID" id="insert-roundID">
                 {{#each dropdown}}
-                    {{!-- <option value="{{this.roundID}}">{{this.roundID}}</option> --}}
                     <option value="{{this.roundID}}">{{this.roundID}} | {{this.username}} | {{this.score}} | {{this.time}}</option>
                 {{/each}}
             </select>
@@ -48,7 +47,6 @@
             <label for="input-roundID">Round ID:</label>
             <select name="input-roundID" id="input-roundID">
                 {{#each dropdown}}
-                    {{!-- <option value="{{this.roundID}}">{{this.roundID}}</option> --}}
                     <option value="{{this.roundID}}">{{this.roundID}} | {{this.username}} | {{this.score}} | {{this.time}}</option>
                 {{/each}}
             </select>
@@ -65,8 +63,8 @@
         <div class="form-example">
             <label for="roundID-update">Change Round ID:</label>
             <select name="roundID-update" id="roundID-update">
-                {{#each roundIDs}}
-                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{#each dropdown}}
+                    <option value="{{this.roundID}}">{{this.roundID}} | {{this.username}} | {{this.score}} | {{this.time}}</option>
                 {{/each}}
             </select>
         </div>

@@ -602,7 +602,6 @@ app.get('/rounds_questions', function(req, res) {
 
         // save Game_Rounds
         let rounds = rows
-        let get_roundIDs = `SELECT roundID FROM Game_Rounds ORDER BY roundID;`
 
         db.pool.query(get_questionTexts, function(error, rows, fields) {
             let questionTexts = rows
@@ -611,26 +610,16 @@ app.get('/rounds_questions', function(req, res) {
                 console.error(error)
             }
 
-            db.pool.query(get_roundIDs, function(error, rows, fields) {
-                let roundIDs = rows
-
-                if(error) {
-                    console.error(error)
-                }
-
-                db.pool.query(get_insert_dropdown, function(error, rows, fields) {
-                    let dropdown = rows
-                
-                    res.status(200).render("rounds_questions", {
-                        title: "Rounds Questions",
-                        data: rounds,
-                        questionTexts: questionTexts,
-                        roundIDs: roundIDs, 
-                        dropdown: dropdown
-                    })
+            db.pool.query(get_insert_dropdown, function(error, rows, fields) {
+                let dropdown = rows
+            
+                res.status(200).render("rounds_questions", {
+                    title: "Rounds Questions",
+                    data: rounds,
+                    questionTexts: questionTexts,
+                    dropdown: dropdown
                 })
             })
-
         })
     })
 })
