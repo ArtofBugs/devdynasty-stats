@@ -31,7 +31,7 @@ insertGameRoundForm.addEventListener("submit", function (e) {
     let data = {
         userID: userIDValue,
         score: scoreValue,
-        time: timeValue,
+        time: timeValue
     }
 
     // Setup our AJAX request

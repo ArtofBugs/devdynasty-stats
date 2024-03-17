@@ -584,6 +584,15 @@ app.get('/rounds_questions', function(req, res) {
         ORDER BY Rounds_Questions.roundID, Questions.questionID
     ;`
 
+    const get_insert_dropdown = `
+        SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText
+        FROM Game_Rounds
+            INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
+            INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+            INNER JOIN Users ON Users.userID = Game_Rounds.userID
+        ORDER BY Rounds_Questions.roundID, Questions.questionID
+    ;`
+
     let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;`
 
     db.pool.query(browse_rounds_questions, function(error, rows, fields) {    // Execute the query
@@ -609,11 +618,16 @@ app.get('/rounds_questions', function(req, res) {
                     console.error(error)
                 }
 
-                res.status(200).render("rounds_questions", {
-                    title: "Rounds Questions",
-                    data: rounds,
-                    questionTexts: questionTexts,
-                    roundIDs: roundIDs
+                db.pool.query(get_insert_dropdown, function(error, rows, fields) {
+                    let dropdown = rows
+                
+                    res.status(200).render("rounds_questions", {
+                        title: "Rounds Questions",
+                        data: rounds,
+                        questionTexts: questionTexts,
+                        roundIDs: roundIDs, 
+                        dropdown: dropdown
+                    })
                 })
             })
 

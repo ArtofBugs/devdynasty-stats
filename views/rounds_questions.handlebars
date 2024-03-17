@@ -22,8 +22,9 @@
         <div class="form-example">
             <label for="insert-roundID">Round ID:</label>
             <select name="insert-roundID" id="insert-roundID">
-                {{#each roundIDs}}
-                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{#each dropdown}}
+                    {{!-- <option value="{{this.roundID}}">{{this.roundID}}</option> --}}
+                    <option value="{{this.roundID}}">{{this.roundID}} | {{this.username}} | {{this.score}} | {{this.time}}</option>
                 {{/each}}
             </select>
         </div>
@@ -46,8 +47,9 @@
         <div class="form-example">
             <label for="input-roundID">Round ID:</label>
             <select name="input-roundID" id="input-roundID">
-                {{#each roundIDs}}
-                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{#each dropdown}}
+                    {{!-- <option value="{{this.roundID}}">{{this.roundID}}</option> --}}
+                    <option value="{{this.roundID}}">{{this.roundID}} | {{this.username}} | {{this.score}} | {{this.time}}</option>
                 {{/each}}
             </select>
         </div>
