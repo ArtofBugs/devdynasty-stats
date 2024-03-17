@@ -20,7 +20,7 @@ PORT=12345
 ## Citations
 Most JS code is adapted from or based on the Node starter code for this class:
 
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+https://github.com/osu-cs340-ecampus/nodejs-starter-app/
 
 
 ### `app.js`:
