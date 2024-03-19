@@ -124,3 +124,9 @@ Scope: Whole file
 Originality: Copied from starter code, except we added a conditional to check for the existence of data, a message if there is no data, and an extra header row (for the delete button column) that is rendered only when the parameter `button` we added is true
 
 Date: 3/18/2024
+
+### Sample data and images:
+
+Sample questions and answers taken from the Fall 2023 CS 290 DevDynasty project (authored by Annette Tongsak, Oria Weng, Deepti Ravidath, Jon David-Jackson, and Amish Nautiyal); some were written with the help of ChatGPT. Retrieved from https://github.com/osu-cs290-f23/final-project-devdynasty-fullstack-ascent on Feb. 6th, 2024.
+
+Favicon and homepage image taken from the same project on Mar. 18th, 2024.
