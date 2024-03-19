@@ -66,6 +66,8 @@ function deleteRow(roundID, questionText) {
         ) {
             table.deleteRow(i);
             deleteDropdownItem(roundID, questionText);
+            // We added this to force reload the page so that the dropdowns update properly
+            window.location.reload(true);
             break;
         }
     }

@@ -68,7 +68,6 @@ updateRoundForm.addEventListener("submit", function (e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add the new data to the table
             updateRow(xhttp.response, inputRoundIDValue, inputQuestionTextValue)
         }
@@ -174,4 +173,7 @@ function updateRow(data, inputRoundID, inputQuestionText){
         questionOption.value = parsedData[0]['questionID'];
         selectQuestionMenu.add(questionOption);
     }
+
+    // We added this to force reload the page so that the dropdowns update properly
+    window.location.reload(true);
 }
