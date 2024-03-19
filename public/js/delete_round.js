@@ -2,7 +2,7 @@
 
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#part-a-using-jquery-to-send-a-delete-request
 // Scope: Function
-// Originality: Adapted from starter code, with our own names and entities
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 function deleteRound(roundID) {
     const link = 'delete-round'
@@ -27,7 +27,7 @@ function deleteRound(roundID) {
 
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#see-below-for-code-to-dynamically-remove-people-from-the-drop-down-menu
 // Scope: Function
-// Originality: Adapted from starter code, with our own names and entities
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 function deleteDropdownItem(roundID) {
     const dropdown = document.getElementById("round-id-update-select");
@@ -45,7 +45,7 @@ function deleteDropdownItem(roundID) {
 function deleteRow(roundID) {
     // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#part-a-using-jquery-to-send-a-delete-request
     // Scope: Just these few lines below, until the next comment
-    // Originality: Adapted from starter code, with our own names and entities
+    // Originality: Adapted from the starter code to fit our project's entities and attributes
     // Date: 3/16/2024
     const table = document.getElementById("game-rounds-table")
     for (var i = 0, row; row = table.rows[i]; i++) {

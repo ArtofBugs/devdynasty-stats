@@ -1,6 +1,6 @@
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
-// Scope: Whole file unless otherwise noted
-// Originality: Adapted from starter code, with our own names and entities
+// Scope: Whole file except where otherwise noted
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 
 // Get the objects we need to modify
@@ -22,8 +22,8 @@ insertGameRoundForm.addEventListener("submit", function (e) {
     let userIDValue = inputUserID.value;
     let scoreValue = inputScore.value;
 
-    // We wrote the code below (until the line) for getting the time value from the time input boxes
-    // and distinguishing between a null input and a 00:00:00 time
+    // We wrote the code below (until the dashed line) for getting the time value from the time input boxes
+    // and distinguishing between a null input and a 00:00:00 time ----------------------------------------
     let timeValue = ''
 
     if (!inputHours.value && !inputMins.value && !inputSec.value) {
@@ -55,7 +55,7 @@ insertGameRoundForm.addEventListener("submit", function (e) {
             timeValue += '0'
         }
     }
-    // End our code for getting time value -----------------------------------------
+    // End our code for getting time value ----------------------------------------------------------------
 
     // Put our data we want to send in a javascript object
     let data = {
@@ -175,7 +175,7 @@ addRowToTable = (data) => {
     // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file,
     // second code block, starting from the comment "Start of new Step 8 code for adding new data to the dropdown menu for updating people"
     // Scope: Just the lines below
-    // Originality: Adapted from starter code, with our own names and entities
+    // Originality: Adapted from the starter code to fit our project's entities and attributes
     // Date: 3/16/2024
 
     // Find roundID dropdown menu, create a new option, fill data in the option,

@@ -1,6 +1,6 @@
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
-// Scope: Whole file unless otherwise noted
-// Originality: Adapted from starter code, with our own names and entities
+// Scope: Whole file except where otherwise noted
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 
 // Get the objects we need to modify
@@ -123,7 +123,7 @@ addRowToTable = (data) => {
     // second code block, starting from the comment "Start of new Step 8 code for adding new data to the dropdown menu for updating people"
     // Scope: Just the lines below
     // Originality: We added the for loop and conditionals to check that the option doesn't already exist in the dropdown;
-    // the content on the inside of the conditionals is adapted from starter code with our own names and entities and for two dropdowns
+    // the content on the inside of the conditionals is adapted from the starter code to fit our project's entities and attributes, and for two dropdowns
     // Date: 3/16/2024
 
     // Find dropdown menu, create a new option, fill data in the option,

@@ -2,7 +2,7 @@
 
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#part-a-using-jquery-to-send-a-delete-request
 // Scope: Function
-// Originality: Adapted from starter code, with our own names and entities
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 function deleteUser(userID) {
     const link = 'delete-user'
@@ -26,7 +26,7 @@ function deleteUser(userID) {
 function deleteRow(userID) {
     // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data#part-a-using-jquery-to-send-a-delete-request
     // Scope: Just these few lines below, until the next comment
-    // Originality: Adapted from starter code, with our own names and entities
+    // Originality: Adapted from the starter code to fit our project's entities and attributes
     // Date: 3/16/2024
     const table = document.getElementById("users-table")
     for (var i = 0, row; row = table.rows[i]; i++) {

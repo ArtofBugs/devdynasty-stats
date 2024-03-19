@@ -1,3 +1,12 @@
+{{!--
+    Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/a890e1f0b39148a4fa6e0314a698b03507ca006f/Step%204%20-%20Dynamically%20Displaying%20Data/views/index.hbs#L12-L23,
+        lines 12-23
+    Scope: Whole file
+    Originality: Copied from starter code, except we added a conditional to check for the existence of data,
+        a message if there is no data, and an extra header row (for the delete button column) that is rendered
+        only when the parameter `button` we added is true
+    Date: 3/18/2024
+--}}
 <thead>
     <tr>
         {{#if data}}

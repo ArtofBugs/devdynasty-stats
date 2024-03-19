@@ -22,6 +22,7 @@ Most JS code is adapted from or based on the Node starter code for this class:
 
 https://github.com/osu-cs340-ecampus/nodejs-starter-app/
 
+SQL files, css file, favicon, and other files not listed here are our own work except where otherwise noted.
 
 ### `app.js`:
 
@@ -33,14 +34,23 @@ Originality: Structure of routes and commenting style based on starter code; SQL
 
 Date: 3/16/2024
 
+### `db_connector.js`:
+
+Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%201%20-%20Connecting%20to%20a%20MySQL%20Database#create-the-database-folder-and-db-connectorjs
+
+Scope: Whole file
+
+Originality: Structure of file based on starter code; connecting to .env to get secrets is our own work
+
+Date: 3/18/2024
 
 ### `insert` files in `public/js`:
 
 Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
 
-Scope: Whole file unless otherwise noted; see code comments in each file for specific information
+Scope: Whole file except where otherwise noted; see code comments in each file for specific information
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -51,7 +61,7 @@ second code block, starting from the comment "Start of new Step 8 code for addin
 
 Scope: The last few lines in `insert_game_round.js` for adding a new option to the round ID dropdown menu
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -59,9 +69,9 @@ Date: 3/16/2024
 ### `update` files in `public/js`:
 Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
 
-Scope: Whole file unless otherwise noted; see code comments in each file for specific information
+Scope: Whole file except where otherwise noted; see code comments in each file for specific information
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -81,7 +91,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: `deleteEntity()` function for each file's entity
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -91,7 +101,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: The line to find the table and the for loop to find the row to delete, in the `deleteRow()` function for each file
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -101,10 +111,16 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: `deleteDropdownItem()` function in `delete_round.js`
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
+### `browse_header.handlebars` template:
 
-// TODO: add citations for handlebars stuff if necessary
-// Handlebars templates are mostly our own work, though the structure of element ids and scripts is possibly based on the starter code as well?
+Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/a890e1f0b39148a4fa6e0314a698b03507ca006f/Step%204%20-%20Dynamically%20Displaying%20Data/views/index.hbs#L12-L23, lines 12-23
+
+Scope: Whole file
+
+Originality: Copied from starter code, except we added a conditional to check for the existence of data, a message if there is no data, and an extra header row (for the delete button column) that is rendered only when the parameter `button` we added is true
+
+Date: 3/18/2024

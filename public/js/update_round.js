@@ -1,6 +1,6 @@
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
-// Scope: Whole file
-// Originality: Adapted from starter code, with our own names and entities
+// Scope: Whole file except where otherwise noted
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 
 // Get the objects we need to modify
@@ -25,8 +25,8 @@ updateRoundForm.addEventListener("submit", function (e) {
     var roundUsernameValue = inputRoundUsername.value
     let roundScoreValue = parseInt(inputRoundScore.value)
 
-    // We wrote the code below (until the line) for getting the time value from the time input boxes
-    // and distinguishing between a null input and a 00:00:00 time
+    // We wrote the code below (until the dashed line) for getting the time value from the time input boxes
+    // and distinguishing between a null input and a 00:00:00 time ----------------------------------------
     var roundTimeValue = ''
 
     if (!inputRoundHours.value && !inputRoundMins.value && !inputRoundSec.value) {
@@ -58,7 +58,7 @@ updateRoundForm.addEventListener("submit", function (e) {
             roundTimeValue += '0'
         }
     }
-    // End our code for getting time value -----------------------------------------
+    // End our code for getting time value ----------------------------------------------------------------
 
     // abort if no valid number is chosen for round ID
 

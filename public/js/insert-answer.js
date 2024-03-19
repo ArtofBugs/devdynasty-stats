@@ -1,6 +1,6 @@
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data#create-add_personjs---client-side-js
 // Scope: Whole file
-// Originality: Adapted from starter code, with our own names and entities
+// Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 
 // Get the objects we need to modify
