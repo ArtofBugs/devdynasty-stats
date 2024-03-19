@@ -87,6 +87,7 @@ updateRoundForm.addEventListener("submit", function (e) {
 
 
 function updateRow(data, inputRoundID, inputQuestionText) {
+    // Since our query returns multiple sets of data, we make separate variables for them here
     const jsonData = JSON.parse(data)
     console.log(jsonData)
     const parsedData = jsonData.data;
@@ -101,7 +102,6 @@ function updateRow(data, inputRoundID, inputQuestionText) {
         return
     }
     const table = document.getElementById("rounds_questions-table")
-    console.log("oldest" , document.getElementById("input-questionID"))
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         //iterate through rows
@@ -138,14 +138,17 @@ function updateRow(data, inputRoundID, inputQuestionText) {
     let selectQuestionMenu = document.getElementById("input-questionID");
     selectQuestionMenu.remove()
 
-    // Create a new dropdown with the newly retrieved dropdown data
+    // Create new dropdowns to add in the newly retrieved dropdown data
     let newSelectRoundMenu = document.createElement("select")
     newSelectRoundMenu.setAttribute("id", "input-roundID")
     let newSelectQuestionMenu = document.createElement("select")
     newSelectQuestionMenu.setAttribute("id", "input-questionID")
 
+    // For each row in the data, create a new option and add it to the new dropdown
     updatedDropdownRounds.forEach(row => {
         let newRoundOption = document.createElement("option")
+
+        // Build the string for the inner text
         let optionText = ""
         row.roundID ? optionText += row.roundID : optionText += "NULL"
         optionText += " | "
@@ -160,6 +163,7 @@ function updateRow(data, inputRoundID, inputQuestionText) {
         newSelectRoundMenu.appendChild(newRoundOption)
     });
 
+    // For each row in the data, create a new option and add it to the new dropdown
     updatedDropdownQuestions.forEach(row => {
         let newQuestionOption = document.createElement("option")
         newQuestionOption.innerText = row.questionText
