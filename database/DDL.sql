@@ -3,7 +3,6 @@
 -- Annette Tongsak and Oria Weng
 
 -- This file contains our Data Definition Queries and sample data INSERT statements.
--- Uncomment the DESCRIBE and SELECT lines at the bottom to see the tables. 
 
 -- Sample questions and answers taken from the Fall 2023 CS 290 DevDynasty project
 -- (authored by Annette Tongsak, Oria Weng, Deepti Ravidath, Jon David-Jackson, and Amish Nautiyal);
