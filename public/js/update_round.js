@@ -1,5 +1,5 @@
 // Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data#create-a-new-javascript-file
-// Scope: Whole file unless otherwise noted
+// Scope: Whole file except where otherwise noted
 // Originality: Adapted from the starter code to fit our project's entities and attributes
 // Date: 3/16/2024
 
