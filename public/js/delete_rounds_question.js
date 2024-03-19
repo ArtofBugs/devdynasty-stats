@@ -71,11 +71,10 @@ function deleteRow(roundID, questionText) {
     }
     // This code is our own; it checks if we just deleted the last row in the table. If so, show a table with
     // just a message saying there is no data, instead of a bunch of table headers with no data under them.
-    if (table.rows.length < 2) {
+    if (table.rows.length == 1) {
         noDataMsg = document.createElement("thead");
         noDataMsg.innerHTML = `<tr><th>No data to display</th></tr>`
-        table.removeChild(document.getElementsByTagName("thead")[0])
-        table.removeChild(document.getElementsByTagName("tbody")[0])
+        table.deleteTHead()
         table.appendChild(noDataMsg)
     }
 }

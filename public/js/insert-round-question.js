@@ -59,7 +59,7 @@ insertRoundQuestionForm.addEventListener("submit", function (e) {
 // Creates a single row from an Object representing a single record from Rounds_Questions
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+    // Get a reference to the current table on the page
     let currentTable = document.getElementById("rounds_questions-table")
 
     // Get a reference to the new row from the database query (last object)
@@ -69,6 +69,32 @@ addRowToTable = (data) => {
     let newRow = parsedData[parsedData.length - 1]
 
     console.log(newRow)
+
+    // The if statement below is all our work.
+    // We added this code to add back the header rows after displaying the
+    // "No data to display" message.
+    if (currentTable.rows.length === 1) {
+        // Remove the message row
+        currentTable.deleteTHead()
+        // Add a new header
+        let newHeader = document.createElement("THEAD")
+        let newHeaderRow = document.createElement("TR")
+
+        // Add header cells for the data columns
+        let roundIDHeader = document.createElement("TH")
+        roundIDHeader.innerText = "roundID"
+        let questionIDHeader = document.createElement("TH")
+        questionIDHeader.innerText = "questionText"
+        let deleteButtonHeader = document.createElement("TH")
+
+        // Add new header elements to table
+        newHeaderRow.appendChild(roundIDHeader)
+        newHeaderRow.appendChild(questionIDHeader)
+        newHeaderRow.appendChild(deleteButtonHeader)
+
+        newHeader.appendChild(newHeaderRow)
+        currentTable.appendChild(newHeader)
+    }
 
     // Create a row and cells
     let row = document.createElement("TR")
@@ -123,7 +149,7 @@ addRowToTable = (data) => {
     let selectQuestionMenu = document.getElementById("input-questionID");
     let questionAlreadyExists = false;
     for (let i = 0; i < selectQuestionMenu.options.length; i++) {
-        if (selectQuestionMenu.options[i].value === newRow.questionID) {
+        if (selectQuestionMenu.options[i].value == newRow.questionID) {
             questionAlreadyExists = true;
             break;
         }
