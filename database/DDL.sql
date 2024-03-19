@@ -190,64 +190,37 @@ CREATE OR REPLACE TABLE `Rounds_Questions` (
 INSERT INTO Rounds_Questions (roundID, questionID) 
 VALUES (
     (SELECT roundID FROM Game_Rounds WHERE roundID = 2),
-    (SELECT questionID FROM Questions WHERE questionText = 'How have you dealt with a team member not pulling their weight in the past?')
+    (SELECT questionID FROM Questions 
+    WHERE questionText = 'How have you dealt with a team member not pulling their weight in the past?')
 );
 
---     SELECT Game_Rounds.roundID, Questions.questionID
---     FROM Game_Rounds, Questions
---     WHERE Game_Rounds.roundID = 2 AND Questions.questionID = 1
+INSERT INTO Rounds_Questions (roundID, questionID) 
+VALUES (
+    (SELECT roundID FROM Game_Rounds WHERE roundID = 2),
+    (SELECT questionID FROM Questions 
+    WHERE questionText = 'Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?')
+);
 
+INSERT INTO Rounds_Questions (roundID, questionID) 
+VALUES (
+    (SELECT roundID FROM Game_Rounds WHERE roundID = 3),
+    (SELECT questionID FROM Questions 
+    WHERE questionText = 'How have you dealt with a team member not pulling their weight in the past?')
+);
 
+INSERT INTO Rounds_Questions (roundID, questionID) 
+VALUES (
+    (SELECT roundID FROM Game_Rounds WHERE roundID = 4),
+    (SELECT questionID FROM Questions 
+    WHERE questionText = 'Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?')
+);
 
-INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
-    SELECT Game_Rounds.roundID, Questions.questionID
-    FROM Game_Rounds, Questions
-    WHERE Game_Rounds.roundID = 2 AND Questions.questionID = 1
-;
-
-INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
-    SELECT Game_Rounds.roundID, Questions.questionID
-    FROM Game_Rounds, Questions
-    WHERE Game_Rounds.roundID = 2 AND Questions.questionID = 3
-;
-
-INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
-    SELECT Game_Rounds.roundID, Questions.questionID
-    FROM Game_Rounds, Questions
-    WHERE Game_Rounds.roundID = 3 AND Questions.questionID = 1
-;
-
-INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
-    SELECT Game_Rounds.roundID, Questions.questionID
-    FROM Game_Rounds, Questions
-    WHERE Game_Rounds.roundID = 4 AND Questions.questionID = 3
-;
-
-INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
-    SELECT Game_Rounds.roundID, Questions.questionID
-    FROM Game_Rounds, Questions
-    WHERE Game_Rounds.roundID = 5 AND Questions.questionID = 3
-;
-
--- (2,1),
-    -- (2,3),
-    -- (3,1),
-    -- (4,3),
-    -- (5,3)
-
--- DESCRIBE Questions;
--- DESCRIBE Game_Rounds;
--- DESCRIBE Question_Types;
--- DESCRIBE Users;
--- DESCRIBE Answers;
--- DESCRIBE Rounds_Questions;
-
--- SELECT * from Questions;
--- SELECT * from Game_Rounds;
--- SELECT * from Question_Types;
--- SELECT * from Users;
--- SELECT * from Answers;
--- SELECT * from Rounds_Questions;
+INSERT INTO Rounds_Questions (roundID, questionID) 
+VALUES (
+    (SELECT roundID FROM Game_Rounds WHERE roundID = 5),
+    (SELECT questionID FROM Questions 
+    WHERE questionText = 'Consider two sorting algorithms: Algorithm A with a time complexity of O(n log n) and Algorithm B with a time complexity of O(n^2). Under what conditions might you choose Algorithm B over Algorithm A?')
+);
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
