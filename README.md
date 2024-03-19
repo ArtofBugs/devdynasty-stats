@@ -22,6 +22,7 @@ Most JS code is adapted from or based on the Node starter code for this class:
 
 https://github.com/osu-cs340-ecampus/nodejs-starter-app/
 
+SQL files, css file, favicon, and other files not listed here are our own work except where otherwise noted.
 
 ### `app.js`:
 
@@ -33,6 +34,15 @@ Originality: Structure of routes and commenting style based on starter code; SQL
 
 Date: 3/16/2024
 
+### `db_connector.js`:
+
+Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%201%20-%20Connecting%20to%20a%20MySQL%20Database#create-the-database-folder-and-db-connectorjs
+
+Scope: Whole file
+
+Originality: Structure of file based on starter code; connecting to .env to get secrets is our own work
+
+Date: 3/18/2024
 
 ### `insert` files in `public/js`:
 
@@ -106,6 +116,7 @@ Originality: Adapted from the starter code to fit our project's entities and att
 Date: 3/16/2024
 
 ### `browse_header.handlebars` template:
+
 Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/a890e1f0b39148a4fa6e0314a698b03507ca006f/Step%204%20-%20Dynamically%20Displaying%20Data/views/index.hbs#L12-L23, lines 12-23
 
 Scope: Whole file
