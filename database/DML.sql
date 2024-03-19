@@ -231,10 +231,11 @@ INSERT INTO Rounds_Questions (roundID, questionID)
 ;
 
 -- Get the newly inserted Round_Question
-SELECT Rounds_Questions.roundID, Questions.questionText
+SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText, Rounds_Questions.questionID
     FROM Rounds_Questions
-        INNER JOIN Questions
-        ON Rounds_Questions.questionID = Questions.questionID
+        INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+        LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
     WHERE Rounds_Questions.roundID = :roundIDInput AND Questions.questionID = :questionIDInput
 ;
 
@@ -261,6 +262,21 @@ SELECT questionID, questionText
     ORDER BY questionID
 ;
 
+-- Get all Game_Rounds and their clarifying information to display in the updated round ID dropdown
+SELECT DISTINCT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time
+    FROM Game_Rounds
+        INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
+        LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+    ORDER BY Game_Rounds.roundID
+;
+
+-- Get all Questions and their text to display in the updated question text dropdown
+SELECT DISTINCT Questions.questionText, Questions.questionID
+    FROM Questions
+        INNER JOIN Rounds_Questions ON Questions.questionID = Rounds_Questions.questionID
+    ORDER BY Questions.questionID
+;
+
 -- Update functionality -- 
 
 -- Update a Round_Question with the given old and new round ID and question ID 
@@ -270,10 +286,11 @@ UPDATE Rounds_Questions
 ;
 
 -- Get the newly updated Round_Question
-SELECT Rounds_Questions.roundID, Questions.questionText
+SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText
     FROM Rounds_Questions
-        JOIN Questions 
-        ON Rounds_Questions.questionID = Questions.questionID
+        INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+        LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
     WHERE Rounds_Questions.roundID = :updated_roundID AND Rounds_Questions.questionID = :updated_questionID
 ;
 
