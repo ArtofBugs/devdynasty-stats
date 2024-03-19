@@ -22,8 +22,8 @@
         <div class="form-example">
             <label for="insert-roundID">Round ID:</label>
             <select name="insert-roundID" id="insert-roundID">
-                {{#each roundIDs}}
-                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{#each roundDropdown}}
+                    <option value="{{this.roundID}}">{{this.roundID}} | {{#if this.username}}{{this.username}}{{else}}NULL{{/if}} | {{#if this.score}}{{this.score}}{{else}}NULL{{/if}} | {{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</option>
                 {{/each}}
             </select>
         </div>
@@ -46,15 +46,15 @@
         <div class="form-example">
             <label for="input-roundID">Round ID:</label>
             <select name="input-roundID" id="input-roundID">
-                {{#each roundIDs}}
-                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{#each roundUpdateDropdown}}
+                    <option value="{{this.roundID}}">{{this.roundID}} | {{#if this.username}}{{this.username}}{{else}}NULL{{/if}} | {{#if this.score}}{{this.score}}{{else}}NULL{{/if}} | {{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</option>
                 {{/each}}
             </select>
         </div>
         <div class="form-example">
             <label for="input-questionID">Question Text:</label>
             <select name="input-questionID" id="input-questionID">
-                {{#each questionTexts}}
+                {{#each questionTextsUpdateDropdown}}
                     <option value="{{this.questionID}}">{{this.questionText}}</option>
                 {{/each}}
             </select>
@@ -63,8 +63,8 @@
         <div class="form-example">
             <label for="roundID-update">Change Round ID:</label>
             <select name="roundID-update" id="roundID-update">
-                {{#each roundIDs}}
-                    <option value="{{this.roundID}}">{{this.roundID}}</option>
+                {{#each roundDropdown}}
+                    <option value="{{this.roundID}}">{{this.roundID}} | {{#if this.username}}{{this.username}}{{else}}NULL{{/if}} | {{#if this.score}}{{this.score}}{{else}}NULL{{/if}} | {{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</option>
                 {{/each}}
             </select>
         </div>

@@ -1,7 +1,7 @@
 // Source: CS 340 node starter code - app.js
 // https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%208%20-%20Dynamically%20Updating%20Data/app.js
 // Scope: Whole file
-// Originality: Structure of routes based on starter code;
+// Originality: Structure of routes and commenting style based on starter code;
 // SQL queries are our own.
 // Date: 3/16/2024
 
@@ -63,10 +63,10 @@ app.post('/insert-user-form-ajax', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on Users
+            // If there was no error, get the newly added User
             let show_users = `
-                SELECT Users.userID, Users.username, Users.password FROM Users
-                WHERE Users.username = '${username}';
+                SELECT userID, username, password FROM Users
+                WHERE username = '${username}';
             `
             db.pool.query(show_users, function(error, rows, fields) {
 
@@ -140,6 +140,7 @@ app.post('/insert-question', function(req, res)
         }
         else
         {
+            // If there was no error, get the newly added Question
             let show_questions = `
                 SELECT Questions.questionID, Questions.questionText, Question_Types.typeName FROM Questions
                 LEFT JOIN Question_Types ON Questions.typeID = Question_Types.typeID
@@ -240,7 +241,7 @@ app.post('/insert-answer-form-ajax', function(req, res){
         }
         else
         {
-            // If there was no error, perform a SELECT * on Answers
+            // If there was no error, get the newly added Answer
             let show_answers = `
                 SELECT Answers.answerID, Answers.answerText, Questions.questionText, Answers.correctness
                 FROM Answers
@@ -319,10 +320,10 @@ app.post('/insert-question-type', function(req, res){
         }
         else
         {
-            // If there was no error, perform a SELECT * on Question_Types
+            // If there was no error, get the newly added Question_Type
             let show_question_types = `
-                SELECT Question_Types.typeID, Question_Types.typeName FROM Question_Types
-                WHERE Question_Types.typeName = '${typeName}';
+                SELECT typeID, typeName FROM Question_Types
+                WHERE typeName = '${typeName}';
             `
 
             db.pool.query(show_question_types, function(error, rows, fields){
@@ -393,12 +394,13 @@ app.post('/insert-game-round-form-ajax', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on Game_Rounds
+            // If there was no error, get the newly added Game_Round
             let show_game_rounds = `
                 SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
                 LEFT JOIN Users ON Game_Rounds.userID = Users.userID
                 WHERE Game_Rounds.userID = ${userID};
             `
+            // We added this check for when userID is null, since = does not work with null
             if (userID === null) {
                 show_game_rounds = `
                     SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time FROM Game_Rounds
@@ -489,7 +491,7 @@ app.put('/put-round', function(req, res) {
         console.log(error)
         res.sendStatus(400)
         }
-        // If there was no error, we run our second query and return that data so we can use it to update the
+        // If there was no error, we run our second query to and return the newly updated data so we can use it to update the
         // table on the front-end
         else {
             // Run the second query
@@ -548,12 +550,13 @@ app.post('/insert-round-question', function(req, res) {
         }
         else
         {
-            // If there was no error, perform a SELECT * on Rounds_Questions
+            // If there was no error, get the newly added Rounds_Question
             let show_rounds_questions = `
-            SELECT Rounds_Questions.roundID, Questions.questionText
+            SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText, Rounds_Questions.questionID
             FROM Rounds_Questions
-                INNER JOIN Questions
-                ON Rounds_Questions.questionID = Questions.questionID
+                INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+                LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+                INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
             WHERE Rounds_Questions.roundID = ${roundID} AND Questions.questionID = ${questionID};
             `
             db.pool.query(show_rounds_questions, function(error, rows, fields) {
@@ -584,39 +587,80 @@ app.get('/rounds_questions', function(req, res) {
         ORDER BY Rounds_Questions.roundID, Questions.questionID
     ;`
 
+    const get_roundID_insert_dropdown = `
+        SELECT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time
+        FROM Game_Rounds
+            LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        ORDER BY Game_Rounds.roundID
+    ;`
+
     let get_questionTexts = `SELECT questionID, questionText FROM Questions ORDER BY questionID;`
+
+    const get_roundID_update_dropdown = `
+        SELECT DISTINCT Game_Rounds.roundID, Users.username, Game_Rounds.score, Game_Rounds.time
+        FROM Game_Rounds
+            INNER JOIN Rounds_Questions ON Game_Rounds.roundID = Rounds_Questions.roundID
+            LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        ORDER BY Game_Rounds.roundID
+    ;`
+    const get_questionTexts_update_dropdown = `
+        SELECT DISTINCT Questions.questionText, Questions.questionID
+        FROM Questions
+            INNER JOIN Rounds_Questions ON Questions.questionID = Rounds_Questions.questionID
+        ORDER BY Questions.questionID
+    ;`
 
     db.pool.query(browse_rounds_questions, function(error, rows, fields) {    // Execute the query
         if(error) {
             console.error(error)
         }
 
-        // save Game_Rounds
-        let rounds = rows
-        let get_roundIDs = `SELECT roundID FROM Game_Rounds ORDER BY roundID;`
+        // save Rounds_Questions
+        let rounds_questions = rows
 
         db.pool.query(get_questionTexts, function(error, rows, fields) {
+            // save questionTexts
             let questionTexts = rows
 
             if(error) {
                 console.error(error)
             }
 
-            db.pool.query(get_roundIDs, function(error, rows, fields) {
-                let roundIDs = rows
+            db.pool.query(get_roundID_insert_dropdown, function(error, rows, fields) {
+                // save rounds info
+                let roundDropdown = rows
 
-                if(error) {
+                if (error) {
                     console.error(error)
                 }
 
-                res.status(200).render("rounds_questions", {
-                    title: "Rounds Questions",
-                    data: rounds,
-                    questionTexts: questionTexts,
-                    roundIDs: roundIDs
+                db.pool.query(get_roundID_update_dropdown, function(error, rows, fields) {
+                    // save updatable rounds info
+                    let roundUpdateDropdown = rows
+
+                    if (error) {
+                        console.error(error)
+                    }
+
+                    db.pool.query(get_questionTexts_update_dropdown, function(error, rows, fields) {
+                        // save updatable questionTexts info
+                        let questionTextsUpdateDropdown = rows
+
+                        if (error) {
+                            console.error(error)
+                        }
+
+                        res.status(200).render("rounds_questions", {
+                            title: "Rounds Questions",
+                            data: rounds_questions,
+                            questionTexts: questionTexts,
+                            roundDropdown: roundDropdown,
+                            questionTextsUpdateDropdown: questionTextsUpdateDropdown,
+                            roundUpdateDropdown: roundUpdateDropdown
+                        })
+                    })
                 })
             })
-
         })
     })
 })
@@ -637,9 +681,11 @@ app.put('/put-round-question', function(req, res) {
         WHERE roundID = ? AND questionID = ?
     ;`
     const selectQuery = `
-        SELECT Rounds_Questions.roundID, Questions.questionText
+        SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText
         FROM Rounds_Questions
-        JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+            INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+            LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+            INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
         WHERE Rounds_Questions.roundID = ? AND Rounds_Questions.questionID = ?
     ;`
 
@@ -650,22 +696,22 @@ app.put('/put-round-question', function(req, res) {
             console.log(error)
             res.sendStatus(400)
         }
-        // If there was no error, we run our second query and return that data so we can use it to update the
+        // If there was no error, we run our second query to and return the newly updated data so we can use it to update the
         // table on the front-end
         else {
             // Run the second query
-                db.pool.query(selectQuery, [newRoundID, newQuestionID], function(error, rows, fields) {
+            db.pool.query(selectQuery, [newRoundID, newQuestionID], function(error, rows, fields) {
 
-                    if (error) {
-                        console.log(error)
-                        res.sendStatus(400)
-                    }
-                    else {
-                        console.log(rows)
-                        res.send(rows)
-                    }
-                })
-            }
+                if (error) {
+                    console.log(error)
+                    res.sendStatus(400)
+                }
+                else {
+                    console.log(rows)
+                    res.send(rows)
+                }
+            })
+        }
     })
 })
 
