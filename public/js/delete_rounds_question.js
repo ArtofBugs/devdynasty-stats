@@ -66,6 +66,8 @@ function deleteRow(roundID, questionText) {
         ) {
             table.deleteRow(i);
             deleteDropdownItem(roundID, questionText);
+            // Force reload the page
+            window.location.reload(true);
             break;
         }
     }
