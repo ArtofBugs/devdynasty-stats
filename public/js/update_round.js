@@ -25,8 +25,8 @@ updateRoundForm.addEventListener("submit", function (e) {
     var roundUsernameValue = inputRoundUsername.value
     let roundScoreValue = parseInt(inputRoundScore.value)
 
-    // We wrote the code below (until the line) for getting the time value from the time input boxes
-    // and distinguishing between a null input and a 00:00:00 time
+    // We wrote the code below (until the dashed line) for getting the time value from the time input boxes
+    // and distinguishing between a null input and a 00:00:00 time ----------------------------------------
     var roundTimeValue = ''
 
     if (!inputRoundHours.value && !inputRoundMins.value && !inputRoundSec.value) {
@@ -58,7 +58,7 @@ updateRoundForm.addEventListener("submit", function (e) {
             roundTimeValue += '0'
         }
     }
-    // End our code for getting time value -----------------------------------------
+    // End our code for getting time value ----------------------------------------------------------------
 
     // abort if no valid number is chosen for round ID
 

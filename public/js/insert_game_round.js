@@ -22,8 +22,8 @@ insertGameRoundForm.addEventListener("submit", function (e) {
     let userIDValue = inputUserID.value;
     let scoreValue = inputScore.value;
 
-    // We wrote the code below (until the line) for getting the time value from the time input boxes
-    // and distinguishing between a null input and a 00:00:00 time
+    // We wrote the code below (until the dashed line) for getting the time value from the time input boxes
+    // and distinguishing between a null input and a 00:00:00 time ----------------------------------------
     let timeValue = ''
 
     if (!inputHours.value && !inputMins.value && !inputSec.value) {
@@ -55,7 +55,7 @@ insertGameRoundForm.addEventListener("submit", function (e) {
             timeValue += '0'
         }
     }
-    // End our code for getting time value -----------------------------------------
+    // End our code for getting time value ----------------------------------------------------------------
 
     // Put our data we want to send in a javascript object
     let data = {
