@@ -187,13 +187,53 @@ CREATE OR REPLACE TABLE `Rounds_Questions` (
     PRIMARY KEY (`roundID`, `questionID`)
 );
 -- Insert sample roundID and questionID values
-INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) VALUES
-    (2,1),
-    (2,3),
-    (3,1),
-    (4,3),
-    (5,3)
+INSERT INTO Rounds_Questions (roundID, questionID) 
+VALUES (
+    (SELECT roundID FROM Game_Rounds WHERE roundID = 2),
+    (SELECT questionID FROM Questions WHERE questionText = 'How have you dealt with a team member not pulling their weight in the past?')
+);
+
+--     SELECT Game_Rounds.roundID, Questions.questionID
+--     FROM Game_Rounds, Questions
+--     WHERE Game_Rounds.roundID = 2 AND Questions.questionID = 1
+
+
+
+INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
+    SELECT Game_Rounds.roundID, Questions.questionID
+    FROM Game_Rounds, Questions
+    WHERE Game_Rounds.roundID = 2 AND Questions.questionID = 1
 ;
+
+INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
+    SELECT Game_Rounds.roundID, Questions.questionID
+    FROM Game_Rounds, Questions
+    WHERE Game_Rounds.roundID = 2 AND Questions.questionID = 3
+;
+
+INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
+    SELECT Game_Rounds.roundID, Questions.questionID
+    FROM Game_Rounds, Questions
+    WHERE Game_Rounds.roundID = 3 AND Questions.questionID = 1
+;
+
+INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
+    SELECT Game_Rounds.roundID, Questions.questionID
+    FROM Game_Rounds, Questions
+    WHERE Game_Rounds.roundID = 4 AND Questions.questionID = 3
+;
+
+INSERT INTO `Rounds_Questions` (`roundID`, `questionID`) 
+    SELECT Game_Rounds.roundID, Questions.questionID
+    FROM Game_Rounds, Questions
+    WHERE Game_Rounds.roundID = 5 AND Questions.questionID = 3
+;
+
+-- (2,1),
+    -- (2,3),
+    -- (3,1),
+    -- (4,3),
+    -- (5,3)
 
 -- DESCRIBE Questions;
 -- DESCRIBE Game_Rounds;
