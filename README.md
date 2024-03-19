@@ -1,4 +1,4 @@
-# DevDynasty Stats
+# DevDynasty Question Stats
 
 ## Development Setup
 1. Clone the repo
