@@ -3,7 +3,11 @@
 -- Annette Tongsak and Oria Weng
 
 -- This file contains our Data Definition Queries and sample data INSERT statements.
--- Uncomment the DESCRIBE and SELECT lines at the bottom to see the tables. 
+
+-- Sample questions and answers taken from the Fall 2023 CS 290 DevDynasty project
+-- (authored by Annette Tongsak, Oria Weng, Deepti Ravidath, Jon David-Jackson, and Amish Nautiyal);
+-- some were written with the help of ChatGPT.
+-- Retrieved from https://github.com/osu-cs290-f23/final-project-devdynasty-fullstack-ascent on Feb. 6th, 2024.
 
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;

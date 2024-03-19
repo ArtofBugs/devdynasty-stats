@@ -74,3 +74,8 @@ option {
 .input-time-field {
     max-width: 5vw;
 }
+
+.title {
+    width: 100%;
+    text-align: center;
+}
