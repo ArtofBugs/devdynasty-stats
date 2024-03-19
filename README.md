@@ -40,7 +40,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: Whole file unless otherwise noted; see code comments in each file for specific information
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -51,7 +51,7 @@ second code block, starting from the comment "Start of new Step 8 code for addin
 
 Scope: The last few lines in `insert_game_round.js` for adding a new option to the round ID dropdown menu
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -61,7 +61,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: Whole file unless otherwise noted; see code comments in each file for specific information
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -81,7 +81,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: `deleteEntity()` function for each file's entity
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -91,7 +91,7 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: The line to find the table and the for loop to find the row to delete, in the `deleteRow()` function for each file
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
@@ -101,10 +101,15 @@ Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%2
 
 Scope: `deleteDropdownItem()` function in `delete_round.js`
 
-Originality: Adapted from starter code, with our own names and entities
+Originality: Adapted from the starter code to fit our project's entities and attributes
 
 Date: 3/16/2024
 
+### `browse_header.handlebars` template:
+Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/a890e1f0b39148a4fa6e0314a698b03507ca006f/Step%204%20-%20Dynamically%20Displaying%20Data/views/index.hbs#L12-L23, lines 12-23
 
-// TODO: add citations for handlebars stuff if necessary
-// Handlebars templates are mostly our own work, though the structure of element ids and scripts is possibly based on the starter code as well?
+Scope: Whole file
+
+Originality: Copied from starter code, except we added a conditional to check for the existence of data, a message if there is no data, and an extra header row (for the delete button column) that is rendered only when the parameter `button` we added is true
+
+Date: 3/18/2024
