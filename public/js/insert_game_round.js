@@ -21,11 +21,41 @@ insertGameRoundForm.addEventListener("submit", function (e) {
     // Get the values from the form fields
     let userIDValue = inputUserID.value;
     let scoreValue = inputScore.value;
-    let timeValue = inputHours.value + ":" + inputMins.value + ":" + inputSec.value;
+
+    // We wrote the code below (until the line) for getting the time value from the time input boxes
+    // and distinguishing between a null input and a 00:00:00 time
+    let timeValue = ''
 
     if (!inputHours.value && !inputMins.value && !inputSec.value) {
+        // If all empty, input is null
         timeValue = null
     }
+    else {
+        if (inputHours.value) {
+            timeValue += inputHours.value
+        }
+        else {
+            // Fill with zero if this box was empty but not all boxes were empty
+            timeValue += '0'
+        }
+        timeValue += ":"
+        if (inputMins.value) {
+            timeValue += inputMins.value
+        }
+        else {
+            // Fill with zero if this box was empty but not all boxes were empty
+            timeValue += '0'
+        }
+        timeValue += ":"
+        if (inputSec) {
+            timeValue += inputSec.value
+        }
+        else {
+            // Fill with zero if this box was empty but not all boxes were empty
+            timeValue += '0'
+        }
+    }
+    // End our code for getting time value -----------------------------------------
 
     // Put our data we want to send in a javascript object
     let data = {
@@ -69,7 +99,7 @@ insertGameRoundForm.addEventListener("submit", function (e) {
 // Creates a single row from an Object representing a single record from Game_Rounds
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+    // Get a reference to the current table on the page
     let currentTable = document.getElementById("game-rounds-table");
 
     // Get a reference to the new row from the database query (last object)
@@ -79,6 +109,38 @@ addRowToTable = (data) => {
     let newRow = parsedData[parsedData.length - 1]
 
     console.log(newRow)
+
+    // The if statement below is all our work.
+    // We added this code to add back the header rows after displaying the
+    // "No data to display" message.
+    if (currentTable.rows.length === 1) {
+        // Remove the message row
+        currentTable.deleteTHead()
+        // Add a new header
+        let newHeader = document.createElement("THEAD")
+        let newHeaderRow = document.createElement("TR")
+
+        // Add header cells for the data columns
+        let roundIDHeader = document.createElement("TH")
+        roundIDHeader.innerText = "roundID"
+        let usernameHeader = document.createElement("TH")
+        usernameHeader.innerText = "username"
+        let scoreHeader = document.createElement("TH")
+        scoreHeader.innerText = "score"
+        let timeHeader = document.createElement("TH")
+        timeHeader.innerText = "time"
+        let deleteButtonHeader = document.createElement("TH")
+
+        // Add new header elements to table
+        newHeaderRow.appendChild(roundIDHeader)
+        newHeaderRow.appendChild(usernameHeader)
+        newHeaderRow.appendChild(scoreHeader)
+        newHeaderRow.appendChild(timeHeader)
+        newHeaderRow.appendChild(deleteButtonHeader)
+
+        newHeader.appendChild(newHeaderRow)
+        currentTable.appendChild(newHeader)
+    }
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
@@ -116,7 +178,7 @@ addRowToTable = (data) => {
     // Originality: Adapted from starter code, with our own names and entities
     // Date: 3/16/2024
 
-    // Find dropdown menu, create a new option, fill data in the option,
+    // Find roundID dropdown menu, create a new option, fill data in the option,
     // then append option to dropdown menu so newly created rows via ajax will be found in it without needing a refresh
     let selectMenu = document.getElementById("round-id-update-select");
     let option = document.createElement("option");
