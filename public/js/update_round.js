@@ -64,6 +64,7 @@ updateRoundForm.addEventListener("submit", function (e) {
 
     if (isNaN(roundIDValue))
     {
+        console.log("That round doesn't exist!")
         return
     }
 

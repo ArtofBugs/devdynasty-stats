@@ -37,7 +37,6 @@ function deleteDropdownItem(roundID, questionText) {
             roundDropdown[i].remove();
             break;
         }
-
     }
     const questionTextDropdown = document.getElementById("input-questionID");
     for (let i = 0; i < questionTextDropdown.length; i++) {

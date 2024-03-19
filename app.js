@@ -681,13 +681,26 @@ app.put('/put-round-question', function(req, res) {
         WHERE roundID = ? AND questionID = ?
     ;`
     const selectQuery = `
-        SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText
+        SELECT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time, Questions.questionText, Rounds_Questions.questionID
         FROM Rounds_Questions
             INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
             LEFT JOIN Users ON Game_Rounds.userID = Users.userID
             INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
         WHERE Rounds_Questions.roundID = ? AND Rounds_Questions.questionID = ?
     ;`
+    const roundDropdownQuery = `
+        SELECT DISTINCT Rounds_Questions.roundID, Users.username, Game_Rounds.score, Game_Rounds.time
+        FROM Rounds_Questions
+            INNER JOIN Game_Rounds ON Rounds_Questions.roundID = Game_Rounds.roundID
+            LEFT JOIN Users ON Game_Rounds.userID = Users.userID
+        ;`
+
+    const questionDropdownQuery = `
+        SELECT DISTINCT Rounds_Questions.questionID, Questions.questionText
+        FROM Rounds_Questions
+            INNER JOIN Questions ON Rounds_Questions.questionID = Questions.questionID
+        ;
+    `
 
     // Run the 1st query
     db.pool.query(updateQuery, [newRoundID, newQuestionID, inputRoundID, inputQuestionID], function(error, rows, fields) {
@@ -707,8 +720,32 @@ app.put('/put-round-question', function(req, res) {
                     res.sendStatus(400)
                 }
                 else {
-                    console.log(rows)
-                    res.send(rows)
+                    let newRow = rows
+                    console.log(newRow)
+
+                    db.pool.query(roundDropdownQuery, function(error, rows, fields) {
+                        if (error) {
+                            console.log(error)
+                            res.sendStatus(400)
+                        }
+                        else {
+                            let dropdownRounds = rows
+                            db.pool.query(questionDropdownQuery, function(error, rows, fields) {
+                                if (error) {
+                                    console.log(error)
+                                    res.sendStatus(400)
+                                }
+                                else {
+                                    let dropdownQuestions = rows
+                                    res.send({
+                                        data: newRow,
+                                        dropdownRounds: dropdownRounds,
+                                        dropdownQuestions: dropdownQuestions
+                                    })
+                                }
+                            })
+                        }
+                    })
                 }
             })
         }

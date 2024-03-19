@@ -44,7 +44,7 @@
     <h2>Update Round_Question</h2>
     <form id="update-round-question" class="form-example">
         <div class="form-example">
-            <label for="input-roundID">Round ID:</label>
+            <label for="input-roundID" id="input-roundID-label">Round ID:</label>
             <select name="input-roundID" id="input-roundID">
                 {{#each roundUpdateDropdown}}
                     <option value="{{this.roundID}}">{{this.roundID}} | {{#if this.username}}{{this.username}}{{else}}NULL{{/if}} | {{#if this.score}}{{this.score}}{{else}}NULL{{/if}} | {{#if this.time}}{{this.time}}{{else}}NULL{{/if}}</option>
@@ -52,7 +52,7 @@
             </select>
         </div>
         <div class="form-example">
-            <label for="input-questionID">Question Text:</label>
+            <label for="input-questionID" id="input-questionID-label">Question Text:</label>
             <select name="input-questionID" id="input-questionID">
                 {{#each questionTextsUpdateDropdown}}
                     <option value="{{this.questionID}}">{{this.questionText}}</option>
