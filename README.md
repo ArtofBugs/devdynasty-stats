@@ -81,7 +81,7 @@ Source: https://stackoverflow.com/a/5947
 
 Scope: Single line for getting text of currently selected question from Rounds_Questions update dropdown
 
-Originality: Adapted, with our own dropdown menu and variable names
+Originality: Adapted to fit with our own dropdown menu and variable names
 
 Date: 3/16/2024
 

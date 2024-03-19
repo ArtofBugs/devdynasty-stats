@@ -26,7 +26,7 @@ updateRoundForm.addEventListener("submit", function (e) {
     // Get text of currently selected question from dropdown
     // Source: https://stackoverflow.com/a/5947
     // Scope: Single line
-    // Originality: Adapted, with our own dropdown menu and variable names
+    // Originality: Adapted to fit our own dropdown menu and variable names
     // Date: 3/16/2024
     const inputQuestionTextValue = inputQuestionText.options[inputQuestionText.selectedIndex].text
 
@@ -86,8 +86,15 @@ updateRoundForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, inputRoundID, inputQuestionText){
-    const parsedData = JSON.parse(data);
+function updateRow(data, inputRoundID, inputQuestionText) {
+    // Since our query returns multiple sets of data, we make separate variables for them here
+    const jsonData = JSON.parse(data)
+    console.log(jsonData)
+    const parsedData = jsonData.data;
+    const updatedDropdownRounds = jsonData.dropdownRounds;
+    const updatedDropdownQuestions = jsonData.dropdownQuestions;
+
+
     // We added an alert for when a user picks a pair of roundID and questionText where they individually exist
     // in Rounds_Questions but there is no row that has both of them
     if (parsedData.length === 0) {
@@ -123,55 +130,52 @@ function updateRow(data, inputRoundID, inputQuestionText){
 
     // All lines below until the end of the function are original
 
-    // Find rounds dropdown menu, create a new option, fill data in the option,
-    // then append option to dropdown menu
+    // Find rounds dropdown menu and remove it
     let selectRoundMenu = document.getElementById("input-roundID");
+    selectRoundMenu.remove()
 
-    // Remove the option for the old roundID
-    for (let i = 0; i < selectRoundMenu.length; i++) {
-        if (selectRoundMenu.options[i].value == inputRoundID) {
-            selectRoundMenu.remove(i)
-        }
-    }
-    // Check if an option already exists for the new roundID
-    let roundAlreadyExists = false;
-    for (let i = 0; i < selectRoundMenu.length; i++) {
-        if (selectRoundMenu.options[i].value === parsedData[0]['roundID']) {
-            roundAlreadyExists = true;
-            break;
-        }
-    }
-    // Add an option for the roundID if it's new
-    if (roundAlreadyExists === false) {
-        let roundOption = document.createElement("option");
-        roundOption.text = parsedData[0]['roundID'] + " | " + parsedData[0]['username'] + " | " + parsedData[0]['score'] + " | " + parsedData[0]['time'];
-        roundOption.value = parsedData[0]['roundID'];
-        selectRoundMenu.add(roundOption);
-    }
-
-    // Find questionText dropdown menu, create a new option, fill data in the option,
-    // then append option to dropdown menu
+    // Find questionTexts dropdown menu and remove it
     let selectQuestionMenu = document.getElementById("input-questionID");
-    let questionAlreadyExists = false;
+    selectQuestionMenu.remove()
 
-    // Remove the option for the old questionID
-    for (let i = 0; i < selectQuestionMenu.length; i++) {
-        if (selectQuestionMenu.options[i].innerHTML === inputQuestionText) {
-            selectQuestionMenu[i].remove()
-        }
-    }
-    // Check if an option already exists for the new questionText
-    for (let i = 0; i < selectQuestionMenu.length; i++) {
-        if (selectQuestionMenu.options[i].value === parsedData[0]['questionID']) {
-            questionAlreadyExists = true;
-            break;
-        }
-    }
-    // Add an option for the questionText if it's new
-    if (questionAlreadyExists === false) {
-        let questionOption = document.createElement("option");
-        questionOption.text = parsedData[0]['questionText'];
-        questionOption.value = parsedData[0]['questionID'];
-        selectQuestionMenu.add(questionOption);
-    }
+    // Create new dropdowns to add in the newly retrieved dropdown data
+    let newSelectRoundMenu = document.createElement("select")
+    newSelectRoundMenu.setAttribute("id", "input-roundID")
+    let newSelectQuestionMenu = document.createElement("select")
+    newSelectQuestionMenu.setAttribute("id", "input-questionID")
+
+    // For each row in the data, create a new option and add it to the new dropdown
+    updatedDropdownRounds.forEach(row => {
+        let newRoundOption = document.createElement("option")
+
+        // Build the string for the inner text
+        let optionText = ""
+        row.roundID ? optionText += row.roundID : optionText += "NULL"
+        optionText += " | "
+        row.username ? optionText += row.username : optionText += "NULL"
+        optionText += " | "
+        row.score ? optionText += row.score : optionText += "NULL"
+        optionText += " | "
+        row.time ? optionText += row.time : optionText += "NULL"
+        newRoundOption.innerText = optionText
+
+        newRoundOption.setAttribute("value", row.roundID)
+        newSelectRoundMenu.appendChild(newRoundOption)
+    });
+
+    // For each row in the data, create a new option and add it to the new dropdown
+    updatedDropdownQuestions.forEach(row => {
+        let newQuestionOption = document.createElement("option")
+        newQuestionOption.innerText = row.questionText
+
+        newQuestionOption.setAttribute("value", row.questionID)
+        newSelectQuestionMenu.appendChild(newQuestionOption)
+    });
+
+    // Get location of label to go with the dropdown and insert the new dropdown next to it
+    let roundLabel = document.getElementById("input-roundID-label")
+    roundLabel.insertAdjacentElement("afterend", newSelectRoundMenu)
+    // Get location of label to go with the dropdown and insert the new dropdown next to it
+    let questionLabel = document.getElementById("input-questionID-label")
+    questionLabel.insertAdjacentElement("afterend", newSelectQuestionMenu)
 }
